@@ -15,50 +15,36 @@ let cube = [
 
 /* Basic operations */
 // Front F, F'
-const F = cube => {
-  // Line 5, 6, 7, 8
-  let newCube = cube
-  newCube[5] = 1
-}
 
-const permutation = (cube, p1L, p1C, p2L, p2C) => {
-  // cube 9*12 matrix
-  // pos: (line, column)
-  let newCube = cube
-  let pos1Value = cube[p1L][p1C]
-  let pos2Value = cube[p2L][p2C]
-  newCube[p1L][p1C] = pos2Value
-  newCube[p2L][p2C] = pos1Value
-  return newCube
-}
-
-const permutationSeries = (cube, series) => {
-  // cube 9*12 matrix
-  // series: array of objects 2 pos: {p1L, p1C, p2L, p2C}
-  let newCube = cube
-  series.forEach(perm => {
-    let v1 = newCube[perm.p1L][perm.p1C]
-    let v2 = newCube[perm.p2L][perm.p2C]
-    newCube[perm.p1L][perm.p1C] = v2
-    newCube[perm.p2L][perm.p2C] = v1
+const clockWiseRotation = (cube, line) => {
+  let newCube = cube.map(function(arr) {
+    return arr.slice()
   })
+  // valid for line = 3, 4, 5 only
+  for (let i = 0; i <= 11; i++) {
+    if (i < 9) {
+      newCube[line][i] = cube[line][i + 3]
+    } else {
+      newCube[line][i] = cube[line][i - 9]
+    }
+  }
   return newCube
 }
 
-console.log(cube)
-console.log(
-  permutationSeries(cube, [
-    {
-      p1L: 0,
-      p1C: 3,
-      p2L: 0,
-      p2C: 4
-    },
-    {
-      p1L: 0,
-      p1C: 3,
-      p2L: 0,
-      p2C: 4
+const counterClockWiseRotation = (cube, line) => {
+  let newCube = cube.map(function(arr) {
+    return arr.slice()
+  })
+  // valid for line = 3, 4, 5 only
+  for (let i = 0; i <= 11; i++) {
+    if (i > 2) {
+      newCube[line][i] = cube[line][i - 3]
+    } else {
+      newCube[line][i] = cube[line][i + 9]
     }
-  ])
-)
+  }
+  return newCube
+}
+
+console.log(clockWiseRotation(cube, 5))
+console.log(counterClockWiseRotation(cube, 5))
