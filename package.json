@@ -1,0 +1,19 @@
+{
+  "name": "rubikscubesolver",
+  "version": "1.0.0",
+  "description": "Rubik's Cube solver algorithm JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexandrePalo/rubikscubesolver.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexandrePalo/rubikscubesolver/issues"
+  },
+  "homepage": "https://github.com/AlexandrePalo/rubikscubesolver#readme"
+}
