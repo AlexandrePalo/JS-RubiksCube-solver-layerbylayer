@@ -13,38 +13,93 @@ let cube = [
   [0, 0, 0, 52, 53, 54, 0, 0, 0, 0, 0, 0]
 ]
 
-/* Basic operations */
-// Front F, F'
+const lineClockWiseRotation = (cube, line) => {
+  // Rotate line 3, 4 or 5
 
-const clockWiseRotation = (cube, line) => {
   let newCube = cube.map(function(arr) {
     return arr.slice()
   })
-  // valid for line = 3, 4, 5 only
-  for (let i = 0; i <= 11; i++) {
-    if (i < 9) {
-      newCube[line][i] = cube[line][i + 3]
-    } else {
-      newCube[line][i] = cube[line][i - 9]
+
+  if (line === 3 || line === 4 || line === 5) {
+    for (let i = 0; i <= 11; i++) {
+      if (i < 9) {
+        newCube[line][i] = cube[line][i + 3]
+      } else {
+        newCube[line][i] = cube[line][i - 9]
+      }
     }
   }
+
+  if (line === 3) {
+    newCube[2][3] = cube[0][3]
+    newCube[1][3] = cube[0][4]
+    newCube[0][3] = cube[0][5]
+    newCube[2][4] = cube[1][3]
+    newCube[1][4] = cube[1][4]
+    newCube[0][4] = cube[1][5]
+    newCube[2][5] = cube[2][3]
+    newCube[1][5] = cube[2][4]
+    newCube[0][5] = cube[2][5]
+  }
+
+  if (line === 5) {
+    newCube[8][3] = cube[6][3]
+    newCube[7][3] = cube[6][4]
+    newCube[6][3] = cube[6][5]
+    newCube[8][4] = cube[7][3]
+    newCube[7][4] = cube[7][4]
+    newCube[6][4] = cube[7][5]
+    newCube[8][5] = cube[8][3]
+    newCube[7][5] = cube[8][4]
+    newCube[6][5] = cube[8][5]
+  }
+
   return newCube
 }
 
-const counterClockWiseRotation = (cube, line) => {
+const lineCounterClockWiseRotation = (cube, line) => {
+  // Rotate line 3, 4 or 5
+
   let newCube = cube.map(function(arr) {
     return arr.slice()
   })
-  // valid for line = 3, 4, 5 only
-  for (let i = 0; i <= 11; i++) {
-    if (i > 2) {
-      newCube[line][i] = cube[line][i - 3]
-    } else {
-      newCube[line][i] = cube[line][i + 9]
+
+  if (line === 3 || line === 4 || line === 5) {
+    for (let i = 0; i <= 11; i++) {
+      if (i > 2) {
+        newCube[line][i] = cube[line][i - 3]
+      } else {
+        newCube[line][i] = cube[line][i + 9]
+      }
     }
   }
+
+  if (line === 3) {
+    newCube[0][5] = cube[0][3]
+    newCube[1][5] = cube[0][4]
+    newCube[2][5] = cube[0][5]
+    newCube[0][4] = cube[1][3]
+    newCube[1][4] = cube[1][4]
+    newCube[2][4] = cube[1][5]
+    newCube[0][3] = cube[2][3]
+    newCube[1][3] = cube[2][4]
+    newCube[2][3] = cube[2][5]
+  }
+
+  if (line === 5) {
+    newCube[6][5] = cube[6][3]
+    newCube[7][5] = cube[6][4]
+    newCube[8][5] = cube[6][5]
+    newCube[6][4] = cube[7][3]
+    newCube[7][4] = cube[7][4]
+    newCube[8][4] = cube[7][5]
+    newCube[6][3] = cube[8][3]
+    newCube[7][3] = cube[8][4]
+    newCube[8][3] = cube[8][5]
+  }
+
   return newCube
 }
 
-console.log(clockWiseRotation(cube, 5))
-console.log(counterClockWiseRotation(cube, 5))
+console.log(cube)
+console.log(lineClockWiseRotation(cube, 3))
