@@ -101,5 +101,132 @@ const lineCounterClockWiseRotation = (cube, line) => {
   return newCube
 }
 
+const columnClockWiseRotation = (cube, column) => {
+  // Rotate column 3, 4 or 5
+
+  let newCube = cube.map(function(arr) {
+    return arr.slice()
+  })
+  let fakeLine = []
+  let newFakeLine = []
+
+  // real column
+  for (let j = 0; j <= 8; j++) {
+    fakeLine.push(cube[j][column])
+  }
+  // add upper face by reverting the corresponding matrix
+  for (let j = 3; j <= 5; j++) {
+    fakeLine.push(cube[j][11 - column + 3])
+  }
+
+  // move fake line
+  if (column === 3 || column === 4 || column === 5) {
+    for (let i = 0; i <= 11; i++) {
+      if (i < 9) {
+        newFakeLine[i] = fakeLine[i + 3]
+      } else {
+        newFakeLine[i] = fakeLine[i - 9]
+      }
+    }
+  }
+
+  // rebuild cube with fake line
+  for (let j = 0; j <= 8; j++) {
+    newCube[j][column] = newFakeLine[j]
+  }
+  for (let j = 3; j <= 5; j++) {
+    newCube[j][11 - column + 3] = newFakeLine[6 + j]
+  }
+
+  if (column === 3) {
+    newCube[5][0] = cube[3][0]
+    newCube[4][0] = cube[3][1]
+    newCube[3][0] = cube[3][2]
+    newCube[5][1] = cube[4][0]
+    newCube[4][1] = cube[4][1]
+    newCube[3][1] = cube[4][2]
+    newCube[5][2] = cube[5][0]
+    newCube[4][2] = cube[5][1]
+    newCube[3][2] = cube[5][2]
+  }
+
+  if (column === 5) {
+    newCube[5][6] = cube[3][6]
+    newCube[4][6] = cube[3][7]
+    newCube[3][6] = cube[3][8]
+    newCube[5][7] = cube[4][6]
+    newCube[4][7] = cube[4][7]
+    newCube[3][7] = cube[4][8]
+    newCube[5][8] = cube[5][6]
+    newCube[4][8] = cube[5][7]
+    newCube[3][8] = cube[5][8]
+  }
+
+  return newCube
+}
+
+const columnCounterClockWiseRotation = (cube, column) => {
+  // Rotate column 3, 4 or 5
+
+  let newCube = cube.map(function(arr) {
+    return arr.slice()
+  })
+  let fakeLine = []
+  let newFakeLine = []
+
+  // real column
+  for (let j = 0; j <= 8; j++) {
+    fakeLine.push(cube[j][column])
+  }
+  // add upper face by reverting the corresponding matrix
+  for (let j = 3; j <= 5; j++) {
+    fakeLine.push(cube[j][11 - column + 3])
+  }
+
+  // move fake line
+  if (column === 3 || column === 4 || column === 5) {
+    for (let i = 0; i <= 11; i++) {
+      if (i > 2) {
+        newFakeLine[i] = fakeLine[i - 3]
+      } else {
+        newFakeLine[i] = fakeLine[i + 9]
+      }
+    }
+  }
+
+  // rebuild cube with fake line
+  for (let j = 0; j <= 8; j++) {
+    newCube[j][column] = newFakeLine[j]
+  }
+  for (let j = 3; j <= 5; j++) {
+    newCube[j][11 - column + 3] = newFakeLine[6 + j]
+  }
+
+  if (column === 3) {
+    newCube[3][2] = cube[3][0]
+    newCube[4][2] = cube[3][1]
+    newCube[5][2] = cube[3][2]
+    newCube[3][1] = cube[4][0]
+    newCube[4][1] = cube[4][1]
+    newCube[5][1] = cube[4][2]
+    newCube[3][0] = cube[5][0]
+    newCube[4][0] = cube[5][1]
+    newCube[5][0] = cube[5][2]
+  }
+
+  if (column === 5) {
+    newCube[3][8] = cube[3][6]
+    newCube[4][8] = cube[3][7]
+    newCube[5][8] = cube[3][8]
+    newCube[3][7] = cube[4][6]
+    newCube[4][7] = cube[4][7]
+    newCube[5][7] = cube[4][8]
+    newCube[3][6] = cube[5][6]
+    newCube[4][6] = cube[5][7]
+    newCube[5][6] = cube[5][8]
+  }
+
+  return newCube
+}
+
 console.log(cube)
-console.log(lineClockWiseRotation(cube, 3))
