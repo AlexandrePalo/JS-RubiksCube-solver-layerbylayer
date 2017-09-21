@@ -16,4 +16,4 @@ let cube = [
 ]
 
 console.log(cube)
-console.log(F(cube))
+console.log(U(cube))
