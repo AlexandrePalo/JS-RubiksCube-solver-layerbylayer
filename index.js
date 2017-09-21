@@ -229,4 +229,53 @@ const columnCounterClockWiseRotation = (cube, column) => {
   return newCube
 }
 
+const bottomClockWiseRotation(cube) => {
+  let newCube = cube.map(function(arr) {
+    return arr.slice()
+  })
+  let fakeLineInner = []
+  let newFakeLineInner = []
+
+  // Inner square
+  newCube[5][3] = cube[3][3]
+  newCube[4][3] = cube[3][4]
+  newCube[3][3] = cube[3][5]
+  newCube[5][4] = cube[4][3]
+  newCube[4][4] = cube[4][4]
+  newCube[3][4] = cube[4][5]
+  newCube[5][5] = cube[5][3]
+  newCube[4][5] = cube[5][4]
+  newCube[3][5] = cube[5][5]
+
+  // Outter square
+  newCube[][] = cube[2][3]
+  newCube[][] = cube[2][4]
+  newCube[][] = cube[2][5]
+  newCube[][] = cube[3][2]
+  newCube[][] = cube[4][2]
+  newCube[][] = cube[5][2]
+  newCube[][] = cube[6][3]
+  newCube[][] = cube[6][4]
+  newCube[][] = cube[6][5]
+  newCube[][] = cube[3][6]
+  newCube[][] = cube[4][6]
+  newCube[][] = cube[5][6]
+
+  return newCube
+}
+
+// TODO: bottom ccw, top cw & ccw
+
+// Convention: front of us (F face) = line 5 to 8
+// Todo U & D
+const L = cube => columnClockWiseRotation(cube, 3)
+const Lc = cube => columnCounterClockWiseRotation(cube, 3)
+const F = cube => lineClockWiseRotation(cube, 5)
+const Fc = cube => lineCounterClockWiseRotation(cube, 5)
+const R = cube => columnClockWiseRotation(cube, 5)
+const Rc = cube => columnCounterClockWiseRotation(cube, 5)
+const B = cube => lineClockWiseRotation(cube, 3)
+const Bc = cube => lineCounterClockWiseRotation(cube, 3)
+
 console.log(cube)
+console.log(F(cube))

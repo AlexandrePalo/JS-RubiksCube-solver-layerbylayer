@@ -1,0 +1,1 @@
+import mappingTable from './mappingTable'
