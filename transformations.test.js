@@ -60,17 +60,45 @@ const cubeAfterLc = [
   [0, 0, 0, 25, 53, 54, 0, 0, 0, 0, 0, 0]
 ]
 
+const cubeAfterF = [
+  [0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 4, 5, 6, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 7, 8, 9, 0, 0, 0, 0, 0, 0],
+  [10, 11, 12, 19, 20, 21, 28, 29, 30, 37, 38, 39],
+  [13, 14, 15, 22, 23, 24, 31, 32, 33, 40, 41, 42],
+  [25, 26, 27, 34, 35, 36, 43, 44, 45, 16, 17, 18],
+  [0, 0, 0, 48, 51, 54, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 47, 50, 53, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 46, 49, 52, 0, 0, 0, 0, 0, 0]
+]
+
+const cubeAfterFc = [
+  [0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 4, 5, 6, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 7, 8, 9, 0, 0, 0, 0, 0, 0],
+  [10, 11, 12, 19, 20, 21, 28, 29, 30, 37, 38, 39],
+  [13, 14, 15, 22, 23, 24, 31, 32, 33, 40, 41, 42],
+  [43, 44, 45, 16, 17, 18, 25, 26, 27, 34, 35, 36],
+  [0, 0, 0, 52, 49, 46, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 53, 50, 47, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 54, 51, 48, 0, 0, 0, 0, 0, 0]
+]
+
 test('transformation U', () => {
   expect(U(cube)).toEqual(cubeAfterU)
 })
 test('transformation Uc', () => {
   expect(Uc(cube)).toEqual(cubeAfterUc)
 })
-
 test('transformation L', () => {
   expect(L(cube)).toEqual(cubeAfterL)
 })
-
 test('transformation Lc', () => {
   expect(Lc(cube)).toEqual(cubeAfterLc)
+})
+test('transformation F', () => {
+  expect(F(cube)).toEqual(cubeAfterF)
+})
+test('transformation Fc', () => {
+  expect(Fc(cube)).toEqual(cubeAfterFc)
 })
