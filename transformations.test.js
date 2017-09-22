@@ -197,6 +197,18 @@ const cubeAfterY = [
   [0, 0, 0, 36, 33, 30, 0, 0, 0, 0, 0, 0]
 ]
 
+const cubeAfterYc = [
+  [0, 0, 0, 30, 33, 36, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 29, 32, 35, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 28, 31, 34, 0, 0, 0, 0, 0, 0],
+  [3, 6, 9, 21, 24, 27, 48, 51, 54, 43, 40, 37],
+  [2, 5, 8, 20, 23, 26, 47, 50, 53, 44, 41, 38],
+  [1, 4, 7, 19, 22, 25, 46, 49, 52, 45, 42, 39],
+  [0, 0, 0, 12, 15, 18, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 11, 14, 17, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 10, 13, 16, 0, 0, 0, 0, 0, 0]
+]
+
 test('transformation U', () => {
   expect(U(cube)).toEqual(cubeAfterU)
 })
@@ -236,5 +248,6 @@ test('transformation Bc', () => {
 test('transformation Y', () => {
   expect(Y(cube)).toEqual(cubeAfterY)
 })
-
-// TODO: Y, Yc
+test('transformation Yc', () => {
+  expect(Yc(cube)).toEqual(cubeAfterYc)
+})
