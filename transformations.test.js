@@ -1,4 +1,19 @@
-import { U, Uc, L, Lc, F, Fc, R, Rc, B, Bc, D, Dc } from './transformations'
+import {
+  U,
+  Uc,
+  L,
+  Lc,
+  F,
+  Fc,
+  R,
+  Rc,
+  B,
+  Bc,
+  D,
+  Dc,
+  Y,
+  Yc
+} from './transformations'
 
 /*
     0    1   2  3   4   5   6    7  8    9  10   11
@@ -170,6 +185,18 @@ const cubeAfterBc = [
   [0, 0, 0, 52, 53, 54, 0, 0, 0, 0, 0, 0]
 ]
 
+const cubeAfterY = [
+  [0, 0, 0, 16, 13, 10, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 17, 14, 11, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 18, 15, 12, 0, 0, 0, 0, 0, 0],
+  [52, 49, 46, 25, 22, 19, 7, 4, 1, 39, 42, 45],
+  [53, 50, 47, 26, 23, 20, 8, 5, 2, 38, 41, 44],
+  [54, 51, 48, 27, 24, 21, 9, 6, 3, 37, 40, 43],
+  [0, 0, 0, 34, 31, 28, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 35, 32, 29, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 36, 33, 30, 0, 0, 0, 0, 0, 0]
+]
+
 test('transformation U', () => {
   expect(U(cube)).toEqual(cubeAfterU)
 })
@@ -205,6 +232,9 @@ test('transformation B', () => {
 })
 test('transformation Bc', () => {
   expect(Bc(cube)).toEqual(cubeAfterBc)
+})
+test('transformation Y', () => {
+  expect(Y(cube)).toEqual(cubeAfterY)
 })
 
 // TODO: Y, Yc

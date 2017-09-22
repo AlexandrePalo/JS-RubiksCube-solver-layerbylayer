@@ -24,5 +24,7 @@ const B = cube => baseTransformation(cube, mappingTable.B)
 const Bc = cube => baseTransformation(cube, mappingTable.Bc)
 const D = cube => baseTransformation(cube, mappingTable.D)
 const Dc = cube => baseTransformation(cube, mappingTable.Dc)
+const Y = cube => baseTransformation(cube, mappingTable.Y)
+const Yc = cube => baseTransformation(cube, mappingTable.Yc)
 
-export { U, Uc, L, Lc, F, Fc, R, Rc, B, Bc, D, Dc }
+export { U, Uc, L, Lc, F, Fc, R, Rc, B, Bc, D, Dc, Y, Yc }
