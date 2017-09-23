@@ -1,4 +1,22 @@
-import { U, Uc, L, Lc, F, Fc, R, Rc, B, Bc, D, Dc } from './transformations'
+import {
+  U,
+  Uc,
+  L,
+  Lc,
+  F,
+  Fc,
+  R,
+  Rc,
+  B,
+  Bc,
+  D,
+  Dc,
+  Y,
+  Yc
+} from './transformations'
+import { b, w, r, o, y, g } from './colors'
+import mixCube from './mix'
+import solverStage2 from './stage2'
 
 // Cube: matrix 9*12
 // 19 to 27 is Bottom B
@@ -32,13 +50,27 @@ import { U, Uc, L, Lc, F, Fc, R, Rc, B, Bc, D, Dc } from './transformations'
 */
 
 let cube = [
-  [0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 4, 5, 6, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 7, 8, 9, 0, 0, 0, 0, 0, 0],
-  [10, 11, 12, 19, 20, 21, 28, 29, 30, 37, 38, 39],
-  [13, 14, 15, 22, 23, 24, 31, 32, 33, 40, 41, 42],
-  [16, 17, 18, 25, 26, 27, 34, 35, 36, 43, 44, 45],
-  [0, 0, 0, 46, 47, 48, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 49, 50, 51, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 52, 53, 54, 0, 0, 0, 0, 0, 0]
+  [0, 0, 0, g, g, g, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, g, g, y, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, r, g, b, 0, 0, 0, 0, 0, 0],
+  [r, r, y, g, y, y, r, r, o, w, w, w],
+  [r, r, y, b, y, b, r, o, o, w, w, w],
+  [r, o, o, b, o, o, y, o, o, w, w, w],
+  [0, 0, 0, y, y, g, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, g, b, b, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, b, b, b, 0, 0, 0, 0, 0, 0]
 ]
+
+const solvedCube = [
+  [0, 0, 0, g, g, g, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, g, g, g, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, g, g, g, 0, 0, 0, 0, 0, 0],
+  [o, o, o, w, w, w, r, r, r, y, y, y],
+  [o, o, o, w, w, w, r, r, r, y, y, y],
+  [o, o, o, w, w, w, r, r, r, y, y, y],
+  [0, 0, 0, b, b, b, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, b, b, b, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, b, b, b, 0, 0, 0, 0, 0, 0]
+]
+
+console.log(solverStage2(cube))
