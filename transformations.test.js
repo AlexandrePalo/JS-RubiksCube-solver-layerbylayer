@@ -12,7 +12,8 @@ import {
   D,
   Dc,
   Y,
-  Yc
+  Yc,
+  X
 } from './transformations'
 
 /*
@@ -209,6 +210,18 @@ const cubeAfterYc = [
   [0, 0, 0, 10, 13, 16, 0, 0, 0, 0, 0, 0]
 ]
 
+const cubeAfterX = [
+  [0, 0, 0, 45, 44, 43, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 42, 41, 40, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 39, 38, 37, 0, 0, 0, 0, 0, 0],
+  [16, 13, 10, 1, 2, 3, 30, 33, 36, 54, 53, 52],
+  [17, 14, 11, 4, 5, 6, 29, 32, 35, 51, 50, 49],
+  [18, 15, 12, 7, 8, 9, 28, 31, 34, 48, 47, 46],
+  [0, 0, 0, 19, 20, 21, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 22, 23, 24, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 25, 26, 27, 0, 0, 0, 0, 0, 0]
+]
+
 test('transformation U', () => {
   expect(U(cube)).toEqual(cubeAfterU)
 })
@@ -250,4 +263,7 @@ test('transformation Y', () => {
 })
 test('transformation Yc', () => {
   expect(Yc(cube)).toEqual(cubeAfterYc)
+})
+test('transformation X', () => {
+  expect(X(cube)).toEqual(cubeAfterX)
 })

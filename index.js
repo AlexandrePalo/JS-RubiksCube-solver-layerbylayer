@@ -1,22 +1,7 @@
-import {
-  U,
-  Uc,
-  L,
-  Lc,
-  F,
-  Fc,
-  R,
-  Rc,
-  B,
-  Bc,
-  D,
-  Dc,
-  Y,
-  Yc
-} from './transformations'
 import { b, w, r, o, y, g } from './colors'
 import mixCube from './mix'
 import solverStage2 from './stage2'
+import solverStage3 from './stage3'
 
 // Cube: matrix 9*12
 // 19 to 27 is Bottom B
@@ -49,7 +34,7 @@ import solverStage2 from './stage2'
 8    [00, 00, 00, 52, 53, 54, 00, 00, 00, 00, 00, 00]
 */
 
-let cube = [
+let cubeEndStage1 = [
   [0, 0, 0, g, g, g, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, g, g, y, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, r, g, b, 0, 0, 0, 0, 0, 0],
@@ -73,4 +58,4 @@ const solvedCube = [
   [0, 0, 0, b, b, b, 0, 0, 0, 0, 0, 0]
 ]
 
-console.log(solverStage2(cube))
+console.log(solverStage3(solverStage2(cubeEndStage1)))
