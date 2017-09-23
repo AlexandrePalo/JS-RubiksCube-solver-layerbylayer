@@ -32,7 +32,6 @@ const solverStage3 = cube => {
       (cube[4][11] == colorU && cube[3][10] == colorU)
     ) {
       // line well oriented or half cross well oriented
-      console.log('formula')
       return solverStage3(s3formula(cube))
     } else {
       // U and retry
@@ -62,6 +61,7 @@ export default solverStage3
 */
 
 const s3formula = cube => {
+  console.log("formula (FRUR'U'F')")
   let newCube = cube.map(arr => arr.slice())
   newCube = Fc(Uc(Rc(U(R(F(cube))))))
   return newCube

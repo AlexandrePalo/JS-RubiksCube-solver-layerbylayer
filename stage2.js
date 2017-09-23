@@ -30,12 +30,10 @@ const solverStage2 = (cube, consecutiveD = 0) => {
       // The cube need to be moved to L or R
       if (cube[5][4] == cube[4][1]) {
         // Formula L
-        console.log('formula L')
         return solverStage2(s2formulaL(cube))
       }
       if (cube[5][4] == cube[4][7]) {
         // Formula R
-        console.log('formula R')
         return solverStage2(s2formulaR(cube))
       }
     } else {
@@ -44,13 +42,11 @@ const solverStage2 = (cube, consecutiveD = 0) => {
       if (cube[7][3] == cube[4][1] && cube[5][1] == cube[7][4]) {
         // Move it with L formula
         console.log('wrong order L')
-        console.log('formula L')
         return solverStage2(s2formulaL(cube))
       }
       if (cube[7][5] == cube[4][7] && cube[5][7] == cube[7][4]) {
         // Move it with R formula
         console.log('wrong order R')
-        console.log('formula R')
         return solverStage2(s2formulaR(cube))
       }
 
@@ -64,7 +60,6 @@ const solverStage2 = (cube, consecutiveD = 0) => {
       ) {
         // R or L formula whatever F is
         console.log('all U edges color')
-        console.log('formula R')
         return solverStage2(s2formulaR(cube))
       }
 
@@ -91,12 +86,14 @@ const solverStage2 = (cube, consecutiveD = 0) => {
 export default solverStage2
 
 const s2formulaL = cube => {
+  console.log("formula L (DLD'L'D'F'DF)")
   let newCube = cube.map(arr => arr.slice())
   newCube = F(D(Fc(Dc(Lc(Dc(L(D(cube))))))))
   return newCube
 }
 
 const s2formulaR = cube => {
+  console.log("formula R (D'R'DRDFD'F')")
   let newCube = cube.map(arr => arr.slice())
   newCube = Fc(Dc(F(D(R(D(Rc(Dc(cube))))))))
   return newCube
