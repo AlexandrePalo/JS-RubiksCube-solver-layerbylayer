@@ -19,16 +19,26 @@ import {
 const solverStage3 = cube => {
   let stage3Complete = false
 
-  // X2 needed for stage 3 and further
-  cube = X(X(cube))
-  console.log(cube)
-
   // First check if stage3 is needed
   if (isStage3Complete(cube)) {
     stage3Complete = true
   }
 
   if (!stage3Complete) {
+    let colorU = cube[4][10]
+
+    if (
+      (cube[4][9] == colorU && cube[4][11] == colorU) ||
+      (cube[4][11] == colorU && cube[3][10] == colorU)
+    ) {
+      // line well oriented or half cross well oriented
+      console.log('formula')
+      return solverStage3(s3formula(cube))
+    } else {
+      // U and retry
+      console.log('U')
+      return solverStage3(U(cube))
+    }
   } else {
     console.log('----- STAGE 3 END -----')
     return cube

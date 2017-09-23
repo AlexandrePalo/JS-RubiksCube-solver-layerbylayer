@@ -12,7 +12,8 @@ import {
   D,
   Dc,
   Y,
-  Yc
+  Yc,
+  X
 } from './transformations'
 
 const solverStage2 = (cube, consecutiveD = 0) => {
@@ -80,6 +81,9 @@ const solverStage2 = (cube, consecutiveD = 0) => {
     }
   } else {
     console.log('----- STAGE 2 END -----')
+    // X2 needed for stage 3 and further
+    console.log('X2')
+    cube = X(X(cube))
     return cube
   }
 }
