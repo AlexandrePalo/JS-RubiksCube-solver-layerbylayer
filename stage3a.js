@@ -16,11 +16,11 @@ import {
   X
 } from './transformations'
 
-const solverStage3 = cube => {
+const solverStage3a = cube => {
   let stage3Complete = false
 
   // First check if stage3 is needed
-  if (isStage3Complete(cube)) {
+  if (isStage3CompleteA(cube)) {
     stage3Complete = true
   }
 
@@ -32,19 +32,19 @@ const solverStage3 = cube => {
       (cube[4][11] == colorU && cube[3][10] == colorU)
     ) {
       // line well oriented or half cross well oriented
-      return solverStage3(s3formula(cube))
+      return solverStage3a(s3formulaA(cube))
     } else {
       // U and retry
       console.log('U')
-      return solverStage3(U(cube))
+      return solverStage3a(U(cube))
     }
   } else {
-    console.log('----- STAGE 3 END -----')
+    console.log('----- STAGE 3a END -----')
     return cube
   }
 }
 
-export default solverStage3
+export default solverStage3a
 
 /*
       0    1   2  3   4   5   6    7  8    9  10   11
@@ -60,14 +60,14 @@ export default solverStage3
 8    [00, 00, 00, 52, 53, 54, 00, 00, 00, 00, 00, 00]
 */
 
-const s3formula = cube => {
-  console.log("formula (FRUR'U'F')")
+const s3formulaA = cube => {
+  console.log("formula a (FRUR'U'F')")
   let newCube = cube.map(arr => arr.slice())
   newCube = Fc(Uc(Rc(U(R(F(cube))))))
   return newCube
 }
 
-const isStage3Complete = cube => {
+const isStage3CompleteA = cube => {
   // Be careful, the cube was returned with X2
 
   // D completed

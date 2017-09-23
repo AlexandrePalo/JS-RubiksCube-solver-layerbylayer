@@ -1,7 +1,7 @@
 import { b, w, r, o, y, g } from './colors'
 import mixCube from './mix'
 import solverStage2 from './stage2'
-import solverStage3 from './stage3'
+import solverStage3a from './stage3a'
 
 // Cube: matrix 9*12
 // 19 to 27 is Bottom B
@@ -58,4 +58,4 @@ const solvedCube = [
   [0, 0, 0, b, b, b, 0, 0, 0, 0, 0, 0]
 ]
 
-console.log(solverStage3(solverStage2(cubeEndStage1)))
+console.log(solverStage3a(solverStage2(cubeEndStage1)))
