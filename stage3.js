@@ -19,6 +19,10 @@ import {
 const solverStage3 = cube => {
   let stage3Complete = false
 
+  // X2 needed for stage 3 and further
+  cube = X(X(cube))
+  console.log(cube)
+
   // First check if stage3 is needed
   if (isStage3Complete(cube)) {
     stage3Complete = true
@@ -49,34 +53,36 @@ export default solverStage3
 
 const s3formula = cube => {
   let newCube = cube.map(arr => arr.slice())
-  newCube = F(D(Fc(Dc(Lc(Dc(L(D(cube))))))))
+  newCube = Fc(Uc(Rc(U(R(F(cube))))))
   return newCube
 }
 
 const isStage3Complete = cube => {
-  // U completed
-  let colorU = cube[4][10]
-  let Ucompleted = false
+  // Be careful, the cube was returned with X2
+
+  // D completed
+  let colorD = cube[4][4]
+  let Dcompleted = false
   if (
-    cube[3][9] == colorU &&
-    cube[3][10] == colorU &&
-    cube[3][11] == colorU &&
-    cube[4][9] == colorU &&
-    cube[4][11] == colorU &&
-    cube[5][9] == colorU &&
-    cube[5][10] == colorU &&
-    cube[5][11] == colorU
+    cube[3][3] == colorD &&
+    cube[3][4] == colorD &&
+    cube[3][5] == colorD &&
+    cube[4][3] == colorD &&
+    cube[4][5] == colorD &&
+    cube[5][3] == colorD &&
+    cube[5][4] == colorD &&
+    cube[5][5] == colorD
   ) {
-    Ucompleted = true
+    Dcompleted = true
   }
 
   // First & second rows of L, R, F, & B completed
   let colorL = cube[4][1]
   let firstAndSecondRowsLcompleted = false
   if (
-    cube[3][0] == colorL &&
-    cube[4][0] == colorL &&
-    cube[5][0] == colorL &&
+    cube[3][2] == colorL &&
+    cube[4][2] == colorL &&
+    cube[5][2] == colorL &&
     cube[3][1] == colorL &&
     cube[5][1] == colorL
   ) {
@@ -86,9 +92,9 @@ const isStage3Complete = cube => {
   let colorR = cube[4][7]
   let firstAndSecondRowsRcompleted = false
   if (
-    cube[3][8] == colorR &&
-    cube[4][8] == colorR &&
-    cube[5][8] == colorR &&
+    cube[3][6] == colorR &&
+    cube[4][6] == colorR &&
+    cube[5][6] == colorR &&
     cube[3][7] == colorR &&
     cube[5][7] == colorR
   ) {
@@ -98,9 +104,9 @@ const isStage3Complete = cube => {
   let colorF = cube[7][4]
   let firstAndSecondRowsFcompleted = false
   if (
-    cube[8][3] == colorF &&
-    cube[8][4] == colorF &&
-    cube[8][5] == colorF &&
+    cube[6][3] == colorF &&
+    cube[6][4] == colorF &&
+    cube[6][5] == colorF &&
     cube[7][3] == colorF &&
     cube[7][5] == colorF
   ) {
@@ -109,34 +115,34 @@ const isStage3Complete = cube => {
   let colorB = cube[1][4]
   let firstAndSecondRowsBcompleted = false
   if (
-    cube[0][3] == colorB &&
-    cube[0][4] == colorB &&
-    cube[0][5] == colorB &&
+    cube[2][3] == colorB &&
+    cube[2][4] == colorB &&
+    cube[2][5] == colorB &&
     cube[1][3] == colorB &&
     cube[1][5] == colorB
   ) {
     firstAndSecondRowsBcompleted = true
   }
 
-  // cross D completed
-  let colorD = cube[4][4]
-  let crossDcompleted = false
+  // cross U completed
+  let colorU = cube[4][10]
+  let crossUcompleted = false
   if (
-    cube[3][4] == colorD &&
-    cube[4][3] == colorD &&
-    cube[4][5] == colorD &&
-    cube[5][4] == colorD
+    cube[4][9] == colorU &&
+    cube[4][11] == colorU &&
+    cube[3][10] == colorU &&
+    cube[5][10] == colorU
   ) {
-    crossDcompleted = true
+    crossUcompleted = true
   }
 
   if (
-    Ucompleted &&
+    Dcompleted &&
     firstAndSecondRowsLcompleted &&
     firstAndSecondRowsRcompleted &&
     firstAndSecondRowsFcompleted &&
     firstAndSecondRowsBcompleted &&
-    crossDcompleted
+    crossUcompleted
   ) {
     return true
   }
