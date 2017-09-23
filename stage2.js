@@ -24,7 +24,6 @@ const solverStage2 = (cube, consecutiveD = 0) => {
   }
 
   if (!stage2Complete) {
-    let nbConsecutiveD = 0
     // Check if formula is needed on F
     if (cube[6][4] == cube[7][4] && cube[5][4] != cube[4][4]) {
       // The cube need to be moved to L or R
@@ -40,6 +39,34 @@ const solverStage2 = (cube, consecutiveD = 0) => {
       }
     } else {
       // The cube doesn't belong to the face F or is already well placed (regarding F and D)
+      // Check if edges are placed but no in the right order
+      if (cube[7][3] == cube[4][1] && cube[5][1] == cube[7][4]) {
+        // Move it with L formula
+        console.log('wrong order L')
+        console.log('formula L')
+        return solverStage2(s2formulaL(cube))
+      }
+      if (cube[7][5] == cube[4][7] && cube[5][7] == cube[7][4]) {
+        // Move it with R formula
+        console.log('wrong order R')
+        console.log('formula R')
+        return solverStage2(s2formulaR(cube))
+      }
+
+      // Check if all D edges are the color of U
+      let colorU = cube[4][4]
+      if (
+        cube[4][2] == colorU &&
+        cube[2][4] == colorU &&
+        cube[4][6] == colorU &&
+        cube[6][4] == colorU
+      ) {
+        // R or L formula whatever F is
+        console.log('all U edges color')
+        console.log('formula R')
+        return solverStage2(s2formulaR(cube))
+      }
+
       if (consecutiveD < 3) {
         // D
         console.log('D')
