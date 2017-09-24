@@ -16,44 +16,65 @@ import {
   X
 } from './transformations'
 
-const solverStage3a = cube => {
-  let stage3CompleteA = false
+const solverStage3b = cube => {
+  let stage3CompleteB = false
 
   // First check if stage3 is needed
-  if (isStage3CompleteA(cube)) {
-    stage3CompleteA = true
+  if (isStage3CompleteB(cube)) {
+    stage3CompleteB = true
   }
 
-  if (!stage3CompleteA) {
-    let colorU = cube[4][10]
+  /*
+        0    1   2  3   4   5   6    7  8    9  10   11
 
-    if (
-      (cube[4][9] == colorU && cube[4][11] == colorU) ||
-      (cube[4][11] == colorU && cube[3][10] == colorU)
+  0    [00, 00, 00, 01, 02, 03, 00, 00, 00, 00, 00, 00],
+  1    [00, 00, 00, 04, 05, 06, 00, 00, 00, 00, 00, 00],
+  2    [00, 00, 00, 07, 08, 09, 00, 00, 00, 00, 00, 00],
+  3    [10, 11, 12, 19, 20, 21, 28, 29, 30, 37, 38, 39],
+  4    [13, 14, 15, 22, 23, 24, 31, 32, 33, 40, 41, 42],
+  5    [16, 17, 18, 25, 26, 27, 34, 35, 36, 43, 44, 45],
+  6    [00, 00, 00, 46, 47, 48, 00, 00, 00, 00, 00, 00],
+  7    [00, 00, 00, 49, 50, 51, 00, 00, 00, 00, 00, 00],
+  8    [00, 00, 00, 52, 53, 54, 00, 00, 00, 00, 00, 00]
+  */
+
+  if (!stage3CompleteB) {
+    let edgeLOK = cube[4][0] == cube[4][1]
+    let edgeROK = cube[4][8] == cube[4][7]
+    let edgeFOK = cube[8][4] == cube[7][4]
+    let edgeBOK = cube[0][4] == cube[1][4]
+
+    if ((edgeROK && edgeBOK) || (edgeBOK && edgeFOK) || (edgeLOK && edgeROK)) {
+      // Edge R and Edge B well oriented
+      // Or 2 well oriented edges face each others
+      return solverStage3b(s3formulaB(cube))
+    } else if (
+      (edgeFOK && edgeROK) ||
+      (edgeFOK && edgeLOK) ||
+      (edgeBOK && edgeLOK)
     ) {
-      // line well oriented or half cross well oriented
-      return solverStage3a(s3formulaA(cube))
+      console.log('Y')
+      return solverStage3b(Y(cube))
     } else {
-      // U and retry
       console.log('U')
-      return solverStage3a(U(cube))
+      return solverStage3b(U(cube))
     }
   } else {
-    console.log('----- STAGE 3a END -----')
+    console.log('----- STAGE 3b END -----')
     return cube
   }
 }
 
-export default solverStage3a
+export default solverStage3b
 
-const s3formulaA = cube => {
-  console.log("formula a (FRUR'U'F')")
+const s3formulaB = cube => {
+  console.log("formula b (RUR'URU2R)")
   let newCube = cube.map(arr => arr.slice())
-  newCube = Fc(Uc(Rc(U(R(F(cube))))))
+  newCube = Rc(U(U(R(U(Rc(U(R(cube))))))))
   return newCube
 }
 
-const isStage3CompleteA = cube => {
+const isStage3CompleteB = cube => {
   // Be careful, the cube was returned with X2
 
   // D completed
@@ -132,13 +153,25 @@ const isStage3CompleteA = cube => {
     crossUcompleted = true
   }
 
+  // U edges well oriented
+  let UEdgesWellOriented = false
+  if (
+    cube[4][0] == cube[4][1] &&
+    cube[4][8] == cube[4][7] &&
+    cube[8][4] == cube[7][4] &&
+    cube[0][4] == cube[1][4]
+  ) {
+    UEdgesWellOriented = true
+  }
+
   if (
     Dcompleted &&
     firstAndSecondRowsLcompleted &&
     firstAndSecondRowsRcompleted &&
     firstAndSecondRowsFcompleted &&
     firstAndSecondRowsBcompleted &&
-    crossUcompleted
+    crossUcompleted &&
+    UEdgesWellOriented
   ) {
     return true
   }
