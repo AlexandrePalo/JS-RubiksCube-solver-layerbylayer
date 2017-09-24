@@ -70,7 +70,6 @@ const solverStage4 = cube => {
       if (cornerUFRPlaced) {
         return solverStage4(s4formula(cube))
       } else {
-        console.log('Y')
         return solverStage4(Y(cube))
       }
     } else if (nbCornersPlaced == 0) {

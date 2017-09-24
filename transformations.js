@@ -1,4 +1,5 @@
 import mappingTable from './mapping'
+import { logger } from './logger'
 
 const baseTransformation = (cube, table) => {
   let newCube = cube.map(function(arr) {
@@ -12,20 +13,65 @@ const baseTransformation = (cube, table) => {
   return newCube
 }
 
-const U = cube => baseTransformation(cube, mappingTable.U)
-const Uc = cube => baseTransformation(cube, mappingTable.Uc)
-const L = cube => baseTransformation(cube, mappingTable.L)
-const Lc = cube => baseTransformation(cube, mappingTable.Lc)
-const F = cube => baseTransformation(cube, mappingTable.F)
-const Fc = cube => baseTransformation(cube, mappingTable.Fc)
-const R = cube => baseTransformation(cube, mappingTable.R)
-const Rc = cube => baseTransformation(cube, mappingTable.Rc)
-const B = cube => baseTransformation(cube, mappingTable.B)
-const Bc = cube => baseTransformation(cube, mappingTable.Bc)
-const D = cube => baseTransformation(cube, mappingTable.D)
-const Dc = cube => baseTransformation(cube, mappingTable.Dc)
-const Y = cube => baseTransformation(cube, mappingTable.Y)
-const Yc = cube => baseTransformation(cube, mappingTable.Yc)
-const X = cube => baseTransformation(cube, mappingTable.X)
+const U = cube => {
+  logger('U')
+  return baseTransformation(cube, mappingTable.U)
+}
+const Uc = cube => {
+  logger("U'")
+  return baseTransformation(cube, mappingTable.Uc)
+}
+const L = cube => {
+  logger('L')
+  return baseTransformation(cube, mappingTable.L)
+}
+const Lc = cube => {
+  logger("L'")
+  return baseTransformation(cube, mappingTable.Lc)
+}
+const F = cube => {
+  logger('F')
+  return baseTransformation(cube, mappingTable.F)
+}
+const Fc = cube => {
+  logger("F'")
+  return baseTransformation(cube, mappingTable.Fc)
+}
+const R = cube => {
+  logger('R')
+  return baseTransformation(cube, mappingTable.R)
+}
+const Rc = cube => {
+  logger("R'")
+  return baseTransformation(cube, mappingTable.Rc)
+}
+const B = cube => {
+  logger('B')
+  return baseTransformation(cube, mappingTable.B)
+}
+const Bc = cube => {
+  logger("B'")
+  return baseTransformation(cube, mappingTable.Bc)
+}
+const D = cube => {
+  logger('D')
+  return baseTransformation(cube, mappingTable.D)
+}
+const Dc = cube => {
+  logger("D'")
+  return baseTransformation(cube, mappingTable.Dc)
+}
+const Y = cube => {
+  logger('Y')
+  return baseTransformation(cube, mappingTable.Y)
+}
+const Yc = cube => {
+  logger("Y'")
+  return baseTransformation(cube, mappingTable.Yc)
+}
+const X = cube => {
+  logger('X')
+  return baseTransformation(cube, mappingTable.X)
+}
 
 export { U, Uc, L, Lc, F, Fc, R, Rc, B, Bc, D, Dc, Y, Yc, X }

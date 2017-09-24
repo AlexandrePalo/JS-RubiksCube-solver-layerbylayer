@@ -37,7 +37,6 @@ const solverStage5 = cube => {
     ) {
       return solverStage5(s5formula(cube))
     } else {
-      console.log('Y')
       return solverStage5(Y(cube))
     }
   } else {

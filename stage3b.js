@@ -39,10 +39,8 @@ const solverStage3b = cube => {
       (edgeFOK && edgeLOK) ||
       (edgeBOK && edgeLOK)
     ) {
-      console.log('Y')
       return solverStage3b(Y(cube))
     } else {
-      console.log('U')
       return solverStage3b(U(cube))
     }
   } else {

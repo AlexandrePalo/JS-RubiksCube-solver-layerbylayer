@@ -1,10 +1,9 @@
 import { b, w, r, o, y, g } from './colors'
 import mixCube from './mix'
-import solverStage2 from './stage2'
-import solverStage3a from './stage3a'
-import solverStage3b from './stage3b'
-import solverStage4 from './stage4'
-import solverStage5 from './stage5'
+import solver from './solver'
+import solverStage1a from './stage1a'
+import solverStage1b from './stage1b'
+import log, { clearLogs } from './logger'
 
 // Cube: matrix 9*12
 // 19 to 27 is Bottom B
@@ -39,13 +38,13 @@ import solverStage5 from './stage5'
 
 let cubeEndStage1 = [
   [0, 0, 0, g, g, g, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, b, g, b, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, b, b, y, 0, 0, 0, 0, 0, 0],
-  [r, y, o, y, o, o, g, r, o, w, w, w],
-  [r, r, y, g, y, r, y, o, o, w, w, w],
-  [r, o, r, g, r, r, y, g, o, w, w, w],
-  [0, 0, 0, y, g, b, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, y, b, o, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, g, g, b, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, y, o, r, 0, 0, 0, 0, 0, 0],
+  [r, o, o, g, b, y, g, y, o, w, w, w],
+  [r, r, y, r, y, g, r, o, o, w, w, w],
+  [r, g, b, y, b, r, y, o, o, w, w, w],
+  [0, 0, 0, o, r, b, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, y, b, y, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, b, b, b, 0, 0, 0, 0, 0, 0]
 ]
 
@@ -61,8 +60,7 @@ const solvedCube = [
   [0, 0, 0, b, b, b, 0, 0, 0, 0, 0, 0]
 ]
 
-console.log(
-  solverStage5(
-    solverStage4(solverStage3b(solverStage3a(solverStage2(cubeEndStage1))))
-  )
-)
+let beginCube = mixCube(solvedCube)
+clearLogs()
+console.log(solver(beginCube))
+log()

@@ -35,7 +35,6 @@ const solverStage3a = cube => {
       return solverStage3a(s3formulaA(cube))
     } else {
       // U and retry
-      console.log('U')
       return solverStage3a(U(cube))
     }
   } else {
