@@ -4,6 +4,7 @@ import solverStage2 from './stage2'
 import solverStage3a from './stage3a'
 import solverStage3b from './stage3b'
 import solverStage4 from './stage4'
+import solverStage5 from './stage5'
 
 // Cube: matrix 9*12
 // 19 to 27 is Bottom B
@@ -61,5 +62,7 @@ const solvedCube = [
 ]
 
 console.log(
-  solverStage4(solverStage3b(solverStage3a(solverStage2(cubeEndStage1))))
+  solverStage5(
+    solverStage4(solverStage3b(solverStage3a(solverStage2(cubeEndStage1))))
+  )
 )
