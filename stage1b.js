@@ -39,25 +39,29 @@ const solverStage1b = (cube, consecutiveD = 0, consecutiveY = 0) => {
   }
 
   if (!stage1bComplete) {
+    console.log(cube)
+    // TODO: add the case where corners at the to are bad placed
+    // TODO: a function need to lower them
+    // TODO: for instance for the corner FUR: R'D'R
     // 3 Y max to find on last row
     if (
-      cube[6][5] == cube[7][4] &&
+      cube[6][5] == cube[8][4] &&
       cube[5][6] == cube[4][10] &&
-      cube[5][5] == cube[4][7]
+      cube[5][5] == cube[4][8]
     ) {
       console.log("R'D'R")
       return solverStage1b(R(Dc(Rc(cube))))
     } else if (
       cube[6][5] == cube[4][10] &&
-      cube[5][6] == cube[4][7] &&
+      cube[5][6] == cube[4][8] &&
       cube[5][5] == cube[4][1]
     ) {
       console.log("D'R'DR")
       return solverStage1b(R(D(Rc(Dc(cube)))))
     } else if (
       cube[5][5] == cube[4][10] &&
-      cube[6][5] == cube[4][7] &&
-      cube[5][6] == cube[7][4]
+      cube[6][5] == cube[4][8] &&
+      cube[5][6] == cube[8][4]
     ) {
       console.log("R'D2RDR'D'R")
       return solverStage1b(R(Dc(Rc(D(R(D(D(Rc(cube)))))))))
@@ -67,6 +71,13 @@ const solverStage1b = (cube, consecutiveD = 0, consecutiveY = 0) => {
     } else if (cube[8][3] == cube[4][10]) {
       console.log("LDL'")
       return solverStage1b(Lc(D(L(cube))))
+    } else if (
+      cube[5][9] == cube[4][10] &&
+      (cube[8][5] != cube[8][4] || cube[5][8] != cube[4][8])
+    ) {
+      // Lower bad placed corner on U
+      console.log("R'D'R'")
+      return solverStage1b(R(Dc(Rc(cube))))
     } else {
       if (consecutiveY < 3) {
         if (consecutiveD < 3) {
@@ -87,6 +98,174 @@ const solverStage1b = (cube, consecutiveD = 0, consecutiveY = 0) => {
 }
 
 export default solverStage1b
+
+const formulaULCornerULF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula LD'L'DLD'L'")
+  newCube = Lc(Dc(L(D(Lc(Dc(L(cube)))))))
+  return newCube
+}
+
+const formulaULCornerURF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula LDL'D'R'D2RD'R'DR")
+  newCube = R(D(Rc(Dc(R(D(D(Rc(Dc(Lc(D(L(cube))))))))))))
+  return newCube
+}
+
+const formulaULCornerULB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula F'BD'B'F")
+  newCube = F(Bc(Dc(B(Fc(cube)))))
+  return newCube
+}
+
+const formulaULCornerURB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula LDL'BDB'RD'R'")
+  newCube = Rc(Dc(R(Bc(D(B(Lc(D(Lcube))))))))
+  return newCube
+}
+
+const formulaURCornerULF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula R'DRD'D'F'DF")
+  newCube = F(D(Fc(Dc(Dc(R(D(Rc(cube))))))))
+  return newCube
+}
+
+const formulaURCornerURF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula FD'2F'R'D2R")
+  newCube = R(D(D(Rc(Fc(Dc(Dc(F(cube))))))))
+  return newCube
+}
+
+const formulaURCornerULB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula R'DRDL'DL")
+  newCube = L(D(Lc(D(R(D(Rc(cube)))))))
+  return newCube
+}
+
+const formulaURCornerURB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula R'DRB'DB")
+  newCube = B(D(Bc(R(D(Rc(cube))))))
+  return newCube
+}
+
+const formulaDLCornerULF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula DLD'L'")
+  newCube = Lc(Dc(L(D(cube))))
+  return newCube
+}
+
+const formulaDLCornerURF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula D2FD'F'")
+  newCube = Fc(Dc(F(D(D(cube)))))
+  return newCube
+}
+
+const formulaDLCornerULB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula BD'B'")
+  newCube = Bc(Dc(B(cube)))
+  return newCube
+}
+
+const formulaDLCornerURB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula D'RD'R'")
+  newCube = Rc(Dc(R(Dc(cube))))
+  return newCube
+}
+
+const formulaDRCornerULF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula D'2F'DF")
+  newCube = F(D(Fc(Dc(Dc(cube)))))
+  return newCube
+}
+
+const formulaDRCornerURF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula D'R'DR")
+  newCube = R(C(Rc(Dc(cube))))
+  return newCube
+}
+
+const formulaDRCornerULB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula DL'DL")
+  newCube = L(D(Lc(D(cube))))
+  return newCube
+}
+
+const formulaDRCornerURB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula B'DB")
+  newCube = B(D(Bc(cube)))
+  return newCube
+}
+
+const formulaUnderRCornerULF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula LD'2L'DLD'L'")
+  newCube = Lc(Dc(L(D(Lc(Dc(Dc(L(cube))))))))
+  return newCube
+}
+
+const formulaUnderRCornerURF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula DF'D'FR'DR")
+  newCube = R(D(Rc(F(Dc(Fc(D(cube)))))))
+  return newCube
+}
+
+const formulaUnderRCornerULB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula BDB'DBD'B'")
+  newCube = Bc(Dc(B(D(Bc(D(B(cube)))))))
+  return newCube
+}
+
+const formulaUnderRCornerURB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula LDL'D'R'D2RD'R'DR")
+  newCube = R(D(Rc(Dc(R(D(D(Rc(Dc(Lc(D(L(cube))))))))))))
+  return newCube
+}
+
+const formulaUnderLCornerULF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula DLD'2L'DLD'L'")
+  newCube = Lc(Dc(L(D(Lc(Dc(Dc(L(D(cube)))))))))
+  return newCube
+}
+
+const formulaUnderLCornerURF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula R'D2RD'R'DR")
+  newCube = R(D(Rc(Dc(R(D(D(Rc(cube))))))))
+  return newCube
+}
+
+const formulaUnderLCornerULB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula DL'D'LD'L'DL")
+  newCube = L(D(Lc(Dc(L(Dc(Lc(D(cube))))))))
+  return newCube
+}
+
+const formulaUnderLCornerURB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula B'D'BD'B'DB")
+  newCube = B(D(Bc(Dc(B(Dc(Bc(cube)))))))
+  return newCube
+}
 
 const isStage1bComplete = cube => {
   // U completed
