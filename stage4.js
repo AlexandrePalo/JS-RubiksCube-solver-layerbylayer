@@ -76,6 +76,7 @@ const solverStage4 = cube => {
       return solverStage4(s4formula(cube))
     }
   } else {
+    console.log(cube)
     console.log('----- STAGE 4 END -----')
     return cube
   }

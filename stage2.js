@@ -16,7 +16,7 @@ import {
   X
 } from './transformations'
 
-const solverStage2 = (cube, consecutiveD = 0) => {
+const solverStage2 = (cube, consecutiveD = 0, consecutiveY = 0) => {
   let stage2Complete = false
 
   // First check if stage2 is needed
@@ -67,7 +67,12 @@ const solverStage2 = (cube, consecutiveD = 0) => {
       } else {
         // Already 3 D
         // --> Y
-        return solverStage2(Y(cube))
+        if (consecutiveY < 3) {
+          return solverStage2(Y(cube), 0, consecutiveY + 1)
+        } else {
+          console.log(cube)
+          console.log('error stage 2')
+        }
       }
     }
   } else {

@@ -16,7 +16,7 @@ import {
   X
 } from './transformations'
 
-const solverStage5 = cube => {
+const solverStage5 = (cube, consecutiveY = 0, consecutiveFormula = 0) => {
   let stage5Complete = false
 
   // First check if stage5 is needed
@@ -37,7 +37,16 @@ const solverStage5 = cube => {
     ) {
       return solverStage5(s5formula(cube))
     } else {
-      return solverStage5(Y(cube))
+      if (consecutiveY < 3) {
+        return solverStage5(Y(cube), consecutiveY + 1)
+      } else {
+        if (consecutiveFormula < 3) {
+          return solverStage5(s5formula(cube), 0, consecutiveFormula + 1)
+        } else {
+          console.log(cube)
+          console.log('error stage 5')
+        }
+      }
     }
   } else {
     console.log('----- STAGE 5 END -----')

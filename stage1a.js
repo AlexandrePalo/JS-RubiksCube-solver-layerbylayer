@@ -40,6 +40,7 @@ const solverStage1a = (cube, consecutiveY = 0) => {
   }
 
   if (!stage1aComplete) {
+    console.log(cube)
     // BE CAREFUL, center row MUST be aligned with top rows
 
     let colorU = cube[4][10]
@@ -81,16 +82,24 @@ const solverStage1a = (cube, consecutiveY = 0) => {
       return solverStage1a(formulaLEdgeUB(cube))
     } else if (cube[7][3] == colorU && cube[5][1] == colorF) {
       return solverStage1a(formulaLEdgeUF(cube))
-    } else if (cube[5][3] == colorU && cube[6][4] == colorL) {
+    } else if (cube[5][4] == colorU && cube[6][4] == colorL) {
       return solverStage1a(formulaUnderDEdgeUL(cube))
-    } else if (cube[5][3] == colorU && cube[6][4] == colorR) {
+    } else if (cube[5][4] == colorU && cube[6][4] == colorR) {
       return solverStage1a(formulaUnderDEdgeUR(cube))
-    } else if (cube[5][3] == colorU && cube[6][4] == colorB) {
+    } else if (cube[5][4] == colorU && cube[6][4] == colorB) {
       return solverStage1a(formulaUnderDEdgeUB(cube))
-    } else if (cube[5][3] == colorU && cube[6][4] == colorF) {
+    } else if (cube[5][4] == colorU && cube[6][4] == colorF) {
       return solverStage1a(formulaUnderDEdgeUF(cube))
+    } else if (cube[5][10] == colorU && cube[8][4] != colorF) {
+      console.log('Down edge from U')
+      return solverStage1a(F(F(cube)))
     } else {
-      return solverStage1a(Y(cube))
+      if (consecutiveY < 3) {
+        return solverStage1a(Y(arrayClone(cube)), consecutiveY + 1)
+      } else {
+        console.log(cube)
+        console.log('error stage 1a')
+      }
     }
   } else {
     console.log('----- STAGE 1A END -----')
@@ -108,134 +117,133 @@ const formulaUEdgeUL = cube => {
 }
 
 const formulaUEdgeUR = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log('formula FR')
-  newCube = F(R(cube))
+  newCube = R(F(cube))
   return newCube
 }
 
 const formulaUEdgeUB = cube => {
-  let newCube = cube.map(arr => arr.slice())
-  console.log("formula F'U'LU'")
-  newCube = Uc(Uc(L(Fc(cube))))
+  let newCube = arrayClone(cube)
+  console.log("formula F'U'L'U")
+  newCube = U(Lc(Uc(Fc(cube))))
   return newCube
 }
 
 const formulaUEdgeUF = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log("formula F'UL'U'")
   newCube = Uc(Lc(U(Fc(cube))))
   return newCube
 }
 
 const formulaREdgeUL = cube => {
-  let newCube = cube.map(arr => arr.slice())
-  console.log("formula U'RUU")
+  let newCube = arrayClone(cube)
+  console.log("formula U'RU2")
   newCube = U(U(R(Uc(cube))))
   return newCube
 }
 
 const formulaREdgeUR = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log('formula R')
   newCube = R(cube)
   return newCube
 }
 
 const formulaREdgeUB = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log("formula URU'")
   newCube = Uc(R(U(cube)))
   return newCube
 }
 
 const formulaREdgeUF = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log("formula U'RU")
   newCube = U(R(Uc(cube)))
   return newCube
 }
 
 const formulaDEdgeUL = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log("formula FL'F'")
   newCube = Fc(Lc(F(cube)))
   return newCube
 }
 
 const formulaDEdgeUR = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log("formula UF'R")
   newCube = R(Fc(U(cube)))
   return newCube
 }
 
 const formulaDEdgeUB = cube => {
-  let newCube = cube.map(arr => arr.slice())
-  console.log("formula UUFUL'U")
+  let newCube = arrayClone(cube)
+  console.log("formula U2FUL'U")
   newCube = U(Lc(U(F(U(U(cube))))))
   return newCube
 }
 
 const formulaDEdgeUF = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log("formula F'UL'U'")
   newCube = Uc(Lc(U(Fc(cube))))
-  console.log(newCube)
   return newCube
 }
 
 const formulaLEdgeUL = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log("formula L'")
   newCube = Lc(cube)
   return newCube
 }
 
 const formulaLEdgeUR = cube => {
-  let newCube = cube.map(arr => arr.slice())
-  console.log("formula UUL'U'U'")
+  let newCube = arrayClone(cube)
+  console.log("formula U2L'U'U'")
   newCube = Uc(Uc(Lc(U(U(cube)))))
   return newCube
 }
 
 const formulaLEdgeUB = cube => {
-  let newCube = cube.map(arr => arr.slice())
-  console.log("formula U'L'F")
-  newCube = F(Lc(Uc(cube)))
-  return newCube
-}
-
-const formulaLEdgeUF = cube => {
-  let newCube = cube.map(arr => arr.slice())
-  console.log("formula UL'U'")
+  let newCube = arrayClone(cube)
+  console.log("formula U'L'U")
   newCube = U(Lc(Uc(cube)))
   return newCube
 }
 
+const formulaLEdgeUF = cube => {
+  let newCube = arrayClone(cube)
+  console.log("formula UL'U'")
+  newCube = Uc(Lc(U(cube)))
+  return newCube
+}
+
 const formulaUnderDEdgeUL = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log("formula D'L'2")
   newCube = Lc(Lc(Dc(cube)))
   return newCube
 }
 
 const formulaUnderDEdgeUR = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log('formula DR2')
   newCube = R(R(D(cube)))
   return newCube
 }
 
 const formulaUnderDEdgeUB = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log('formula D2B2')
   newCube = B(B(D(D(cube))))
   return newCube
 }
 
 const formulaUnderDEdgeUF = cube => {
-  let newCube = cube.map(arr => arr.slice())
+  let newCube = arrayClone(cube)
   console.log('formula F2')
   newCube = F(F(cube))
   return newCube
@@ -252,7 +260,7 @@ const isStage1aComplete = cube => {
     cube[5][10] == colorU &&
     cube[4][0] == cube[4][1] &&
     cube[0][4] == cube[1][4] &&
-    cube[8][5] == cube[7][5] &&
+    cube[8][4] == cube[7][4] &&
     cube[4][8] == cube[4][7]
   ) {
     crossUcompleted = true

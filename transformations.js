@@ -1,10 +1,9 @@
 import mappingTable from './mapping'
 import { logger } from './logger'
+import { arrayClone } from './utils'
 
 const baseTransformation = (cube, table) => {
-  let newCube = cube.map(function(arr) {
-    return arr.slice()
-  })
+  let newCube = arrayClone(cube)
 
   table.forEach(t => {
     newCube[t[2]][t[3]] = cube[t[0]][t[1]]

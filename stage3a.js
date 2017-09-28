@@ -16,7 +16,7 @@ import {
   X
 } from './transformations'
 
-const solverStage3a = cube => {
+const solverStage3a = (cube, consecutiveU = 0) => {
   let stage3CompleteA = false
 
   // First check if stage3 is needed
@@ -34,8 +34,13 @@ const solverStage3a = cube => {
       // line well oriented or half cross well oriented
       return solverStage3a(s3formulaA(cube))
     } else {
-      // U and retry
-      return solverStage3a(U(cube))
+      if (consecutiveU < 3) {
+        // U and retry
+        return solverStage3a(U(cube), consecutiveU + 1)
+      } else {
+        console.log(cube)
+        console.log('error stage 3a')
+      }
     }
   } else {
     console.log('----- STAGE 3a END -----')

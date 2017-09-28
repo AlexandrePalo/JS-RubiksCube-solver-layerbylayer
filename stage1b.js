@@ -193,7 +193,11 @@ const solverStage1b = (cube, consecutiveY = 0) => {
     ) {
       return solverStage1b(formulaUnderLCornerURB(cube))
     } else {
-      return solverStage1b(Y(cube))
+      if (consecutiveY < 3) {
+        return solverStage1b(Y(cube))
+      } else {
+        console.log('error stage 1b')
+      }
     }
   } else {
     console.log(cube)

@@ -62,5 +62,5 @@ const solvedCube = [
 
 let beginCube = mixCube(solvedCube)
 clearLogs()
-console.log(solverStage1a(beginCube))
+console.log(solver(beginCube))
 log()
