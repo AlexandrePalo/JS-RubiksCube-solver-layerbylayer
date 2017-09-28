@@ -15,6 +15,7 @@ import {
   Yc,
   X
 } from './transformations'
+import { arrayClone } from './utils'
 
 /*
         0    1   2  3   4   5   6    7  8    9  10   11
@@ -39,55 +40,59 @@ const solverStage1a = (cube, consecutiveY = 0) => {
   }
 
   if (!stage1aComplete) {
-    // For this stage, when you find an edge, you focus on it until it's well placed on U
-    // step by step algorithm
+    // BE CAREFUL, center row MUST be aligned with top rows
 
     let colorU = cube[4][10]
-    // Check edges on F
-    if (cube[6][4] == colorU) {
-      cube = Yc(F(F(cube)))
-      return solverStage1a(s1FinishEdgeOnR(cube))
-    }
-    if (cube[7][3] == colorU) {
-      cube = Yc(F(cube))
-      return solverStage1a(s1FinishEdgeOnR(cube))
-    }
-    if (cube[7][5] == colorU) {
-      cube = Yc(Fc(cube))
-      return solverStage1a(s1FinishEdgeOnR(cube))
-    }
-    if (cube[8][4] == colorU) {
-      cube = Yc(cube)
-      return solverStage1a(s1FinishEdgeOnR(cube))
-    }
+    let colorF = cube[7][4]
+    let colorB = cube[1][4]
+    let colorR = cube[4][7]
+    let colorL = cube[4][1]
+    let colorD = cube[4][4]
 
-    // No edge on F
-    if (consecutiveY < 3) {
-      // Y and recheck
-      cube = Y(cube)
-      return solverStage1a(cube, consecutiveY + 1)
+    if (cube[8][4] == colorU && cube[5][10] == colorL) {
+      return solverStage1a(formulaUEdgeUL(cube))
+    } else if (cube[8][4] == colorU && cube[5][10] == colorR) {
+      return solverStage1a(formulaUEdgeUR(cube))
+    } else if (cube[8][4] == colorU && cube[5][10] == colorB) {
+      return solverStage1a(formulaUEdgeUB(cube))
+    } else if (cube[8][4] == colorU && cube[5][10] == colorF) {
+      return solverStage1a(formulaUEdgeUF(cube))
+    } else if (cube[7][5] == colorU && cube[5][7] == colorL) {
+      return solverStage1a(formulaREdgeUL(cube))
+    } else if (cube[7][5] == colorU && cube[5][7] == colorR) {
+      return solverStage1a(formulaREdgeUR(cube))
+    } else if (cube[7][5] == colorU && cube[5][7] == colorB) {
+      return solverStage1a(formulaREdgeUB(cube))
+    } else if (cube[7][5] == colorU && cube[5][7] == colorF) {
+      return solverStage1a(formulaREdgeUF(cube))
+    } else if (cube[6][4] == colorU && cube[5][4] == colorL) {
+      return solverStage1a(formulaDEdgeUL(cube))
+    } else if (cube[6][4] == colorU && cube[5][4] == colorR) {
+      return solverStage1a(formulaDEdgeUR(cube))
+    } else if (cube[6][4] == colorU && cube[5][4] == colorB) {
+      return solverStage1a(formulaDEdgeUB(cube))
+    } else if (cube[6][4] == colorU && cube[5][4] == colorF) {
+      return solverStage1a(formulaDEdgeUF(cube))
+    } else if (cube[7][3] == colorU && cube[5][1] == colorL) {
+      return solverStage1a(formulaLEdgeUL(cube))
+    } else if (cube[7][3] == colorU && cube[5][1] == colorR) {
+      return solverStage1a(formulaLEdgeUR(cube))
+    } else if (cube[7][3] == colorU && cube[5][1] == colorB) {
+      return solverStage1a(formulaLEdgeUB(cube))
+    } else if (cube[7][3] == colorU && cube[5][1] == colorF) {
+      return solverStage1a(formulaLEdgeUF(cube))
+    } else if (cube[5][3] == colorU && cube[6][4] == colorL) {
+      return solverStage1a(formulaUnderDEdgeUL(cube))
+    } else if (cube[5][3] == colorU && cube[6][4] == colorR) {
+      return solverStage1a(formulaUnderDEdgeUR(cube))
+    } else if (cube[5][3] == colorU && cube[6][4] == colorB) {
+      return solverStage1a(formulaUnderDEdgeUB(cube))
+    } else if (cube[5][3] == colorU && cube[6][4] == colorF) {
+      return solverStage1a(formulaUnderDEdgeUF(cube))
     } else {
-      // All non placed edges are on D
-      if (cube[4][5] == colorU) {
-        cube = R(R(cube))
-        return solverStage1a(s1AlignEdgeOnR(cube))
-      }
-      if (cube[5][4] == colorU) {
-        cube = R(R(D(cube)))
-        return solverStage1a(s1AlignEdgeOnR(cube))
-      }
-      if (cube[4][3] == colorU) {
-        cube = R(R(D(D(cube))))
-        return solverStage1a(s1AlignEdgeOnR(cube))
-      }
-      if (cube[3][4] == colorU) {
-        cube = R(R(Dc(cube)))
-        return solverStage1a(s1AlignEdgeOnR(cube))
-      }
-      console.log('nothing ?')
+      return solverStage1a(Y(cube))
     }
   } else {
-    console.log(cube)
     console.log('----- STAGE 1A END -----')
     return cube
   }
@@ -95,45 +100,144 @@ const solverStage1a = (cube, consecutiveY = 0) => {
 
 export default solverStage1a
 
-const s1FinishEdgeOnR = cube => {
-  // If an edge is on R
-  let colorEdgeU = cube[4][9]
-  if (cube[4][7] == colorEdgeU) {
-    return s1formulaAlpha(cube)
-  } else if (cube[7][4] == colorEdgeU) {
-    cube = Yc(U(cube))
-    return s1formulaAlpha(cube)
-  } else if (cube[4][1] == colorEdgeU) {
-    cube = Yc(Yc(U(U(cube))))
-    return s1formulaAlpha(cube)
-  } else if (cube[1][4] == colorEdgeU) {
-    cube = Y(Uc(cube))
-    return s1formulaAlpha(cube)
-  }
-  console.log(cube)
-  console.log('nothing ? finishEdgeOnR')
+const formulaUEdgeUL = cube => {
+  let newCube = arrayClone(cube)
+  console.log("formula F'L'")
+  newCube = Lc(Fc(cube))
+  return newCube
 }
 
-const s1AlignEdgeOnR = cube => {
-  // Align R center with RU edge
-  let colorEdgeR = cube[4][8]
-  if (cube[4][7] == colorEdgeR) {
-    return cube
-  } else if (cube[7][4] == colorEdgeR) {
-    return Yc(U(cube))
-  } else if (cube[4][1] == colorEdgeR) {
-    return Yc(Yc(U(U(cube))))
-  } else if (cube[1][4] == colorEdgeR) {
-    return Y(Uc(cube))
-  }
-  console.log(cube)
-  console.log('nothing ? alignEdgeOnR')
-}
-
-const s1formulaAlpha = cube => {
-  console.log("formula alpha (R'UF'U')")
+const formulaUEdgeUR = cube => {
   let newCube = cube.map(arr => arr.slice())
-  newCube = Uc(Fc(U(Rc(cube))))
+  console.log('formula FR')
+  newCube = F(R(cube))
+  return newCube
+}
+
+const formulaUEdgeUB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula F'U'LU'")
+  newCube = Uc(Uc(L(Fc(cube))))
+  return newCube
+}
+
+const formulaUEdgeUF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula F'UL'U'")
+  newCube = Uc(Lc(U(Fc(cube))))
+  return newCube
+}
+
+const formulaREdgeUL = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula U'RUU")
+  newCube = U(U(R(Uc(cube))))
+  return newCube
+}
+
+const formulaREdgeUR = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log('formula R')
+  newCube = R(cube)
+  return newCube
+}
+
+const formulaREdgeUB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula URU'")
+  newCube = Uc(R(U(cube)))
+  return newCube
+}
+
+const formulaREdgeUF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula U'RU")
+  newCube = U(R(Uc(cube)))
+  return newCube
+}
+
+const formulaDEdgeUL = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula FL'F'")
+  newCube = Fc(Lc(F(cube)))
+  return newCube
+}
+
+const formulaDEdgeUR = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula UF'R")
+  newCube = R(Fc(U(cube)))
+  return newCube
+}
+
+const formulaDEdgeUB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula UUFUL'U")
+  newCube = U(Lc(U(F(U(U(cube))))))
+  return newCube
+}
+
+const formulaDEdgeUF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula F'UL'U'")
+  newCube = Uc(Lc(U(Fc(cube))))
+  console.log(newCube)
+  return newCube
+}
+
+const formulaLEdgeUL = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula L'")
+  newCube = Lc(cube)
+  return newCube
+}
+
+const formulaLEdgeUR = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula UUL'U'U'")
+  newCube = Uc(Uc(Lc(U(U(cube)))))
+  return newCube
+}
+
+const formulaLEdgeUB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula U'L'F")
+  newCube = F(Lc(Uc(cube)))
+  return newCube
+}
+
+const formulaLEdgeUF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula UL'U'")
+  newCube = U(Lc(Uc(cube)))
+  return newCube
+}
+
+const formulaUnderDEdgeUL = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log("formula D'L'2")
+  newCube = Lc(Lc(Dc(cube)))
+  return newCube
+}
+
+const formulaUnderDEdgeUR = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log('formula DR2')
+  newCube = R(R(D(cube)))
+  return newCube
+}
+
+const formulaUnderDEdgeUB = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log('formula D2B2')
+  newCube = B(B(D(D(cube))))
+  return newCube
+}
+
+const formulaUnderDEdgeUF = cube => {
+  let newCube = cube.map(arr => arr.slice())
+  console.log('formula F2')
+  newCube = F(F(cube))
   return newCube
 }
 
