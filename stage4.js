@@ -76,8 +76,8 @@ const solverStage4 = cube => {
       return solverStage4(s4formula(cube))
     }
   } else {
-    console.log(cube)
-    console.log('----- STAGE 4 END -----')
+    //console.log(cube)
+    //console.log('----- STAGE 4 END -----')
     return cube
   }
 }
@@ -85,7 +85,7 @@ const solverStage4 = cube => {
 export default solverStage4
 
 const s4formula = cube => {
-  console.log("formula (URU'L'UR'U'L)")
+  //console.log("formula (URU'L'UR'U'L)")
   let newCube = cube.map(arr => arr.slice())
   newCube = L(Uc(Rc(U(Lc(Uc(R(U(cube))))))))
   return newCube

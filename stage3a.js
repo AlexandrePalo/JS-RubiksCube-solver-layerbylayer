@@ -55,13 +55,13 @@ const solverStage3a = (cube, consecutiveU = 0, wd = 0) => {
         if (wd < 2) {
           return solverStage3a(s3formulaA(cube), 0, wd + 1)
         } else {
-          console.log(cube)
-          console.log('error stage 3a')
+          //console.log(cube)
+          //console.log('error stage 3a')
         }
       }
     }
   } else {
-    console.log('----- STAGE 3a END -----')
+    //console.log('----- STAGE 3a END -----')
     return cube
   }
 }
@@ -69,7 +69,7 @@ const solverStage3a = (cube, consecutiveU = 0, wd = 0) => {
 export default solverStage3a
 
 const s3formulaA = cube => {
-  console.log("formula a (FRUR'U'F')")
+  //console.log("formula a (FRUR'U'F')")
   let newCube = cube.map(arr => arr.slice())
   newCube = Fc(Uc(Rc(U(R(F(cube))))))
   return newCube

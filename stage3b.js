@@ -44,7 +44,7 @@ const solverStage3b = cube => {
       return solverStage3b(U(cube))
     }
   } else {
-    console.log('----- STAGE 3b END -----')
+    //console.log('----- STAGE 3b END -----')
     return cube
   }
 }
@@ -52,7 +52,7 @@ const solverStage3b = cube => {
 export default solverStage3b
 
 const s3formulaB = cube => {
-  console.log("formula b (RUR'URU2R)")
+  //console.log("formula b (RUR'URU2R)")
   let newCube = cube.map(arr => arr.slice())
   newCube = Rc(U(U(R(U(Rc(U(R(cube))))))))
   return newCube

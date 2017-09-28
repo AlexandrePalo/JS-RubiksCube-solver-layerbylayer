@@ -68,14 +68,14 @@ const solverStage2 = (cube, consecutiveD = 0, consecutiveY = 0) => {
           if (consecutiveY < 3) {
             return solverStage2(Y(cube), 0, consecutiveY + 1)
           } else {
-            console.log(cube)
-            console.log('error stage 2')
+            //console.log(cube)
+            //console.log('error stage 2')
           }
         }
       }
     }
   } else {
-    console.log('----- STAGE 2 END -----')
+    //console.log('----- STAGE 2 END -----')
     // X2 needed for stage 3 and further
     cube = X(X(cube))
     return cube
@@ -85,14 +85,14 @@ const solverStage2 = (cube, consecutiveD = 0, consecutiveY = 0) => {
 export default solverStage2
 
 const s2formulaL = cube => {
-  console.log("formula L (DLD'L'D'F'DF)")
+  //console.log("formula L (DLD'L'D'F'DF)")
   let newCube = cube.map(arr => arr.slice())
   newCube = F(D(Fc(Dc(Lc(Dc(L(D(cube))))))))
   return newCube
 }
 
 const s2formulaR = cube => {
-  console.log("formula R (D'R'DRDFD'F')")
+  //console.log("formula R (D'R'DRDFD'F')")
   let newCube = cube.map(arr => arr.slice())
   newCube = Fc(Dc(F(D(R(D(Rc(Dc(cube))))))))
   return newCube

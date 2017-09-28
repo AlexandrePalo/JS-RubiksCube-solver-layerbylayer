@@ -4,19 +4,24 @@ const logger = transformation => {
   logs = [...logs, transformation]
 }
 
+const nbRealTransformations = () => {
+  return logs.filter(t => t != 'Y' && t != "Y'" && t != 'X').length
+}
+
+const sLog = () => {
+  let s = ''
+  logs.forEach(t => {
+    s = s + t
+  })
+  return s
+}
+
 const log = () => {
   // All transformations
-  let sLog = ''
-  logs.forEach(t => {
-    sLog = sLog + t
-  })
-  console.log(sLog)
+  console.log(sLog())
 
   // Count, without Y, Yc and X
-  let nbRealTransformations = logs.filter(
-    t => t != 'Y' && t != "Y'" && t != 'X'
-  ).length
-  console.log(nbRealTransformations + ' transformations')
+  console.log(nbRealTransformations() + ' transformations')
 }
 
 const clearLogs = () => {
@@ -25,4 +30,4 @@ const clearLogs = () => {
 
 export default log
 
-export { logger, clearLogs }
+export { logger, clearLogs, sLog, nbRealTransformations }

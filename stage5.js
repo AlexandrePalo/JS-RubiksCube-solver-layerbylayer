@@ -43,13 +43,13 @@ const solverStage5 = (cube, consecutiveY = 0, consecutiveFormula = 0) => {
         if (consecutiveFormula < 3) {
           return solverStage5(s5formula(cube), 0, consecutiveFormula + 1)
         } else {
-          console.log(cube)
-          console.log('error stage 5')
+          //console.log(cube)
+          //console.log('error stage 5')
         }
       }
     }
   } else {
-    console.log('----- STAGE 5 END -----')
+    //console.log('----- STAGE 5 END -----')
     return cube
   }
 }
@@ -57,7 +57,7 @@ const solverStage5 = (cube, consecutiveY = 0, consecutiveFormula = 0) => {
 export default solverStage5
 
 const s5formula = cube => {
-  console.log("formula (RU2R'U'RU'R'L'U2LUL'UL)")
+  //console.log("formula (RU2R'U'RU'R'L'U2LUL'UL)")
   let newCube = cube.map(arr => arr.slice())
   newCube = L(U(Lc(U(L(U(U(Lc(Rc(Uc(R(Uc(Rc(U(U(R(cube))))))))))))))))
   return newCube

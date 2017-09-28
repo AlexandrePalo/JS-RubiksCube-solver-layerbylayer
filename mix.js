@@ -22,7 +22,7 @@ const mixCube = (cube, nbMix = 10) => {
   let mixedCube = cube.map(arr => arr.slice())
   for (let i = 0; i < nbMix; i++) {
     let k = Math.floor(Math.random() * 14)
-    console.log(transformationsArray[k])
+    //console.log(transformationsArray[k])
     mixedCube = transformationsArray[k](mixedCube)
   }
   return mixedCube

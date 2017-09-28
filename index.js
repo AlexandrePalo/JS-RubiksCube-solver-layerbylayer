@@ -4,6 +4,7 @@ import solver from './solver'
 import solverStage1a from './stage1a'
 import solverStage1b from './stage1b'
 import log, { clearLogs } from './logger'
+import grapher from './grapher'
 
 // Cube: matrix 9*12
 // 19 to 27 is Bottom B
@@ -60,7 +61,11 @@ const solvedCube = [
   [0, 0, 0, b, b, b, 0, 0, 0, 0, 0, 0]
 ]
 
+/*
 let beginCube = mixCube(solvedCube)
 clearLogs()
 console.log(solver(beginCube))
 log()
+*/
+
+grapher(10000)
