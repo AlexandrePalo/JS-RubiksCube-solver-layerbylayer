@@ -25,16 +25,19 @@ const solverStage2 = (cube, consecutiveD = 0, consecutiveY = 0) => {
   }
 
   if (!stage2Complete) {
+    let colorU = cube[4][4]
     // Check if formula is needed on F
     if (cube[6][4] == cube[7][4] && cube[5][4] != cube[4][4]) {
       // The cube need to be moved to L or R
       if (cube[5][4] == cube[4][1]) {
         // Formula L
         return solverStage2(s2formulaL(cube))
-      }
-      if (cube[5][4] == cube[4][7]) {
+      } else if (cube[5][4] == cube[4][7]) {
         // Formula R
         return solverStage2(s2formulaR(cube))
+      } else {
+        // Default
+        return solverStage2(cube)
       }
       // default case ? TODO: understand here
     } else {
@@ -43,35 +46,31 @@ const solverStage2 = (cube, consecutiveD = 0, consecutiveY = 0) => {
       if (cube[7][3] == cube[4][1] && cube[5][1] == cube[7][4]) {
         // Move it with L formula
         return solverStage2(s2formulaL(cube))
-      }
-      if (cube[7][5] == cube[4][7] && cube[5][7] == cube[7][4]) {
+      } else if (cube[7][5] == cube[4][7] && cube[5][7] == cube[7][4]) {
         // Move it with R formula
         return solverStage2(s2formulaR(cube))
-      }
-
-      // Check if all D edges are the color of U
-      let colorU = cube[4][4]
-      if (
+      } else if (
         cube[4][2] == colorU &&
         cube[2][4] == colorU &&
         cube[4][6] == colorU &&
         cube[6][4] == colorU
       ) {
+        // Check if all D edges are the color of U
         // R or L formula whatever F is
         return solverStage2(s2formulaR(cube))
-      }
-
-      if (consecutiveD < 3) {
-        // D
-        return solverStage2(D(cube), consecutiveD + 1)
       } else {
-        // Already 3 D
-        // --> Y
-        if (consecutiveY < 3) {
-          return solverStage2(Y(cube), 0, consecutiveY + 1)
+        if (consecutiveD < 3) {
+          // D
+          return solverStage2(D(cube), consecutiveD + 1)
         } else {
-          console.log(cube)
-          console.log('error stage 2')
+          // Already 3 D
+          // --> Y
+          if (consecutiveY < 3) {
+            return solverStage2(Y(cube), 0, consecutiveY + 1)
+          } else {
+            console.log(cube)
+            console.log('error stage 2')
+          }
         }
       }
     }
