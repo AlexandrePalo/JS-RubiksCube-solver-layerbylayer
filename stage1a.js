@@ -87,6 +87,7 @@ const solverStage1a = (cube, consecutiveY = 0) => {
       console.log('nothing ?')
     }
   } else {
+    console.log(cube)
     console.log('----- STAGE 1A END -----')
     return cube
   }
@@ -144,7 +145,11 @@ const isStage1aComplete = cube => {
     cube[3][10] == colorU &&
     cube[4][9] == colorU &&
     cube[4][11] == colorU &&
-    cube[5][10] == colorU
+    cube[5][10] == colorU &&
+    cube[4][0] == cube[4][1] &&
+    cube[0][4] == cube[1][4] &&
+    cube[8][5] == cube[7][5] &&
+    cube[4][8] == cube[4][7]
   ) {
     crossUcompleted = true
   }

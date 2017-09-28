@@ -30,7 +30,7 @@ import {
   8    [00, 00, 00, 52, 53, 54, 00, 00, 00, 00, 00, 00]
   */
 
-const solverStage1b = (cube, consecutiveD = 0, consecutiveY = 0) => {
+const solverStage1b = (cube, consecutiveY = 0) => {
   let stage1bComplete = false
 
   // First check if stage1b is needed
@@ -39,59 +39,164 @@ const solverStage1b = (cube, consecutiveD = 0, consecutiveY = 0) => {
   }
 
   if (!stage1bComplete) {
-    console.log(cube)
     // TODO: add the case where corners at the to are bad placed
     // TODO: a function need to lower them
     // TODO: for instance for the corner FUR: R'D'R
-    // 3 Y max to find on last row
-    if (
-      cube[6][5] == cube[8][4] &&
-      cube[5][6] == cube[4][10] &&
-      cube[5][5] == cube[4][8]
-    ) {
-      console.log("R'D'R")
-      return solverStage1b(R(Dc(Rc(cube))))
+
+    // BE CAREFUL, center row MUST be aligned with top rows
+    // stage1a aligns the row, you need to keep it align in stage1b
+    let colorU = cube[4][10]
+    let colorF = cube[7][4]
+    let colorB = cube[1][4]
+    let colorR = cube[4][7]
+    let colorL = cube[4][1]
+    let colorD = cube[4][4]
+
+    if (cube[8][3] == colorU && cube[5][0] == colorF && cube[5][11] == colorL) {
+      return solverStage1b(formulaULCornerULF(cube))
     } else if (
-      cube[6][5] == cube[4][10] &&
-      cube[5][6] == cube[4][8] &&
-      cube[5][5] == cube[4][1]
+      cube[8][3] == colorU &&
+      cube[5][0] == colorR &&
+      cube[5][11] == colorF
     ) {
-      console.log("D'R'DR")
-      return solverStage1b(R(D(Rc(Dc(cube)))))
+      return solverStage1b(formulaULCornerURF(cube))
     } else if (
-      cube[5][5] == cube[4][10] &&
-      cube[6][5] == cube[4][8] &&
-      cube[5][6] == cube[8][4]
+      cube[8][3] == colorU &&
+      cube[5][0] == colorL &&
+      cube[5][11] == colorB
     ) {
-      console.log("R'D2RDR'D'R")
-      return solverStage1b(R(Dc(Rc(D(R(D(D(Rc(cube)))))))))
-    } else if (cube[8][5] == cube[4][10]) {
-      console.log("R'D'R")
-      return solverStage1b(R(Dc(Rc(cube))))
-    } else if (cube[8][3] == cube[4][10]) {
-      console.log("LDL'")
-      return solverStage1b(Lc(D(L(cube))))
+      return formulaULCornerULB(cube)
     } else if (
-      cube[5][9] == cube[4][10] &&
-      (cube[8][5] != cube[8][4] || cube[5][8] != cube[4][8])
+      cube[8][3] == colorU &&
+      cube[5][0] == colorB &&
+      cube[5][11] == colorR
     ) {
-      // Lower bad placed corner on U
-      console.log("R'D'R'")
-      return solverStage1b(R(Dc(Rc(cube))))
+      return solverStage1b(formulaULCornerURB(cube))
+    } else if (
+      cube[8][5] == colorU &&
+      cube[5][9] == colorF &&
+      cube[5][8] == colorL
+    ) {
+      return solverStage1b(formulaURCornerULF(cube))
+    } else if (
+      cube[8][5] == colorU &&
+      cube[5][9] == colorR &&
+      cube[5][8] == colorF
+    ) {
+      return solverStage1b(formulaURCornerURF(cube))
+    } else if (
+      cube[8][5] == colorU &&
+      cube[5][9] == colorL &&
+      cube[5][8] == colorB
+    ) {
+      return solverStage1b(formulaURCornerULB(cube))
+    } else if (
+      cube[8][5] == colorU &&
+      cube[5][9] == colorB &&
+      cube[5][8] == colorR
+    ) {
+      return solverStage1b(formulaURCornerURB(cube))
+    } else if (
+      cube[6][3] == colorU &&
+      cube[5][2] == colorL &&
+      cube[5][3] == colorF
+    ) {
+      return solverStage1b(formulaDLCornerULF(cube))
+    } else if (
+      cube[6][3] == colorU &&
+      cube[5][2] == colorF &&
+      cube[5][3] == colorR
+    ) {
+      return solverStage1b(formulaDLCornerURF(cube))
+    } else if (
+      cube[6][3] == colorU &&
+      cube[5][2] == colorB &&
+      cube[5][3] == colorL
+    ) {
+      return solverStage1b(formulaDLCornerULB(cube))
+    } else if (
+      cube[6][3] == colorU &&
+      cube[5][2] == colorR &&
+      cube[5][3] == colorB
+    ) {
+      return solverStage1b(formulaDLCornerURB(cube))
+    } else if (
+      cube[6][5] == colorU &&
+      cube[5][5] == colorL &&
+      cube[5][6] == colorF
+    ) {
+      return solverStage1b(formulaDRCornerULF(cube))
+    } else if (
+      cube[6][5] == colorU &&
+      cube[5][5] == colorF &&
+      cube[5][6] == colorR
+    ) {
+      return solverStage1b(formulaDRCornerURF(cube))
+    } else if (
+      cube[6][5] == colorU &&
+      cube[5][5] == colorB &&
+      cube[5][6] == colorL
+    ) {
+      return solverStage1b(formulaDRCornerULB(cube))
+    } else if (
+      cube[6][5] == colorU &&
+      cube[5][5] == colorR &&
+      cube[5][6] == colorB
+    ) {
+      return solverStage1b(formulaDRCornerURB(cube))
+    } else if (
+      cube[5][5] == colorU &&
+      cube[6][5] == colorF &&
+      cube[5][6] == colorL
+    ) {
+      return solverStage1b(formulaUnderRCornerULF(cube))
+    } else if (
+      cube[5][5] == colorU &&
+      cube[6][5] == colorR &&
+      cube[5][6] == colorF
+    ) {
+      return solverStage1b(formulaUnderRCornerURF(cube))
+    } else if (
+      cube[5][5] == colorU &&
+      cube[6][5] == colorL &&
+      cube[5][6] == colorB
+    ) {
+      return solverStage1b(formulaUnderRCornerULB(cube))
+    } else if (
+      cube[5][5] == colorU &&
+      cube[6][5] == colorB &&
+      cube[5][6] == colorR
+    ) {
+      return solverStage1b(formulaUnderRCornerURB(cube))
+    } else if (
+      cube[5][3] == colorU &&
+      cube[5][3] == colorF &&
+      cube[6][3] == colorL
+    ) {
+      return solverStage1b(formulaUnderLCornerULF(cube))
+    } else if (
+      cube[5][3] == colorU &&
+      cube[5][3] == colorR &&
+      cube[6][3] == colorF
+    ) {
+      return solverStage1b(formulaUnderLCornerURF(cube))
+    } else if (
+      cube[5][3] == colorU &&
+      cube[5][3] == colorL &&
+      cube[6][3] == colorB
+    ) {
+      return solverStage1b(formulaUnderLCornerULB(cube))
+    } else if (
+      cube[5][3] == colorU &&
+      cube[5][3] == colorB &&
+      cube[6][3] == colorR
+    ) {
+      return solverStage1b(formulaUnderLCornerURB(cube))
     } else {
-      if (consecutiveY < 3) {
-        if (consecutiveD < 3) {
-          console.log('D')
-          return solverStage1b(D(cube), consecutiveD + 1, consecutiveY)
-        } else {
-          console.log('Y')
-          return solverStage1b(Y(cube), 0, consecutiveY + 1)
-        }
-      } else {
-        console.log('UNRECOGNIZED ARRAY')
-      }
+      return solverStage1b(Y(cube))
     }
   } else {
+    console.log(cube)
     console.log('----- STAGE 1B END -----')
     return cube
   }
@@ -123,7 +228,7 @@ const formulaULCornerULB = cube => {
 const formulaULCornerURB = cube => {
   let newCube = cube.map(arr => arr.slice())
   console.log("formula LDL'BDB'RD'R'")
-  newCube = Rc(Dc(R(Bc(D(B(Lc(D(Lcube))))))))
+  newCube = Rc(Dc(R(Bc(D(B(Lc(D(L(cube)))))))))
   return newCube
 }
 
@@ -193,7 +298,7 @@ const formulaDRCornerULF = cube => {
 const formulaDRCornerURF = cube => {
   let newCube = cube.map(arr => arr.slice())
   console.log("formula D'R'DR")
-  newCube = R(C(Rc(Dc(cube))))
+  newCube = R(D(Rc(Dc(cube))))
   return newCube
 }
 
