@@ -1,3 +1,4 @@
+import fs from 'fs'
 import solver from './solver'
 import { b, w, r, o, y, g } from './colors'
 import mixCube from './mix'
@@ -29,6 +30,11 @@ const grapher = nb => {
     }
   }
   console.log(errors)
+  let stream = fs.createWriteStream('./output.txt')
+  stream.once('open', function(fd) {
+    dataset.forEach(d => stream.write(String(d) + '\n'))
+    stream.end()
+  })
   return dataset
 }
 
