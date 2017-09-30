@@ -68,4 +68,4 @@ console.log(solver(beginCube))
 log()
 */
 
-grapher(100000)
+grapher(500)

@@ -7,7 +7,7 @@ import solverStage4 from './stage4'
 import solverStage5 from './stage5'
 
 const solver = cube => {
-  return solverStage1b(solverStage1a(cube))
+  return solverStage1a(cube)
 }
 
 export default solver

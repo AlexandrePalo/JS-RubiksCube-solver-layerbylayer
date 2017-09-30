@@ -65,7 +65,7 @@ const solverStage1b = (cube, consecutiveY = 0) => {
       cube[5][0] == colorL &&
       cube[5][11] == colorB
     ) {
-      return formulaULCornerULB(cube)
+      return solverStage1b(formulaULCornerULB(cube))
     } else if (
       cube[8][3] == colorU &&
       cube[5][0] == colorB &&
@@ -192,15 +192,29 @@ const solverStage1b = (cube, consecutiveY = 0) => {
       cube[6][3] == colorR
     ) {
       return solverStage1b(formulaUnderLCornerURB(cube))
+    } else if (
+      cube[5][11] == colorU &&
+      (cube[8][3] != colorF || cube[5][0] != colorL)
+    ) {
+      // Blocked case 1
+      // Down the UFL block
+      return solverStage1b(Lc(D(L(cube))))
+    } else if (
+      cube[5][9] == colorU &&
+      (cube[8][5] != colorF || cube[5][8] != colorR)
+    ) {
+      // Blocked case 2
+      // Down the UFR block
+      return solverStage1b(R(Dc(Rc(cube))))
     } else {
       if (consecutiveY < 3) {
-        return solverStage1b(Y(cube))
+        return solverStage1b(Y(cube), consecutiveY + 1)
       } else {
-        //console.log('error stage 1b')
+        // Unreached case
+        throw new Error('not end stage 1b')
       }
     }
   } else {
-    //console.log(cube)
     //console.log('----- STAGE 1B END -----')
     return cube
   }
@@ -417,8 +431,16 @@ const isStage1bComplete = cube => {
     firstRowBcompleted = true
   }
 
-  if (Ucompleted) {
+  if (
+    Ucompleted &&
+    firstRowLcompleted &&
+    firstRowRcompleted &&
+    firstRowBcompleted &&
+    firstRowFcompleted
+  ) {
     return true
   }
   return false
 }
+
+export { isStage1bComplete }

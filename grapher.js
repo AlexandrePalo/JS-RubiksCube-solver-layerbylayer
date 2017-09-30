@@ -3,6 +3,7 @@ import solver from './solver'
 import { b, w, r, o, y, g } from './colors'
 import mixCube from './mix'
 import { nbRealTransformations, clearLogs } from './logger'
+import { isStage1bComplete } from './stage1b'
 
 const solvedCube = [
   [0, 0, 0, g, g, g, 0, 0, 0, 0, 0, 0],

@@ -16,7 +16,26 @@ import {
   X
 } from './transformations'
 
-const solverStage2 = (cube, consecutiveD = 0, consecutiveY = 0) => {
+/*
+        0    1   2  3   4   5   6    7  8    9  10   11
+
+  0    [00, 00, 00, 01, 02, 03, 00, 00, 00, 00, 00, 00],
+  1    [00, 00, 00, 04, 05, 06, 00, 00, 00, 00, 00, 00],
+  2    [00, 00, 00, 07, 08, 09, 00, 00, 00, 00, 00, 00],
+  3    [10, 11, 12, 19, 20, 21, 28, 29, 30, 37, 38, 39],
+  4    [13, 14, 15, 22, 23, 24, 31, 32, 33, 40, 41, 42],
+  5    [16, 17, 18, 25, 26, 27, 34, 35, 36, 43, 44, 45],
+  6    [00, 00, 00, 46, 47, 48, 00, 00, 00, 00, 00, 00],
+  7    [00, 00, 00, 49, 50, 51, 00, 00, 00, 00, 00, 00],
+  8    [00, 00, 00, 52, 53, 54, 00, 00, 00, 00, 00, 00]
+  */
+
+const solverStage2 = (
+  cube,
+  consecutiveD = 0,
+  consecutiveY = 0,
+  consecutiveYbis = 0
+) => {
   let stage2Complete = false
 
   // First check if stage2 is needed
@@ -25,51 +44,49 @@ const solverStage2 = (cube, consecutiveD = 0, consecutiveY = 0) => {
   }
 
   if (!stage2Complete) {
-    let colorU = cube[4][4]
-    // Check if formula is needed on F
-    if (cube[6][4] == cube[7][4] && cube[5][4] != cube[4][4]) {
+    //console.log(cube)
+    let colorU = cube[4][10]
+    // Check if formula is needed on F, with R or L formula
+    if (
+      cube[6][4] == cube[7][4] &&
+      cube[5][4] != cube[4][4] &&
+      cube[5][4] == cube[4][1]
+    ) {
       // The cube need to be moved to L or R
-      if (cube[5][4] == cube[4][1]) {
-        // Formula L
-        return solverStage2(s2formulaL(cube))
-      } else if (cube[5][4] == cube[4][7]) {
-        // Formula R
-        return solverStage2(s2formulaR(cube))
-      } else {
-        // Default
-        return solverStage2(cube)
-      }
-      // default case ? TODO: understand here
+      // Formula L
+      return solverStage2(s2formulaL(cube))
+    } else if (
+      cube[6][4] == cube[7][4] &&
+      cube[5][4] != cube[4][4] &&
+      cube[5][4] == cube[4][7]
+    ) {
+      // The cube need to be moved to L or R
+      // Formula R
+      return solverStage2(s2formulaR(cube))
     } else {
-      // The cube doesn't belong to the face F or is already well placed (regarding F and D)
-      // Check if edges are placed but no in the right order
-      if (cube[7][3] == cube[4][1] && cube[5][1] == cube[7][4]) {
-        // Move it with L formula
-        return solverStage2(s2formulaL(cube))
-      } else if (cube[7][5] == cube[4][7] && cube[5][7] == cube[7][4]) {
-        // Move it with R formula
-        return solverStage2(s2formulaR(cube))
-      } else if (
-        cube[4][2] == colorU &&
-        cube[2][4] == colorU &&
-        cube[4][6] == colorU &&
-        cube[6][4] == colorU
-      ) {
-        // Check if all D edges are the color of U
-        // R or L formula whatever F is
-        return solverStage2(s2formulaR(cube))
+      if (consecutiveD < 3) {
+        return solverStage2(D(cube), consecutiveD + 1, consecutiveY)
       } else {
-        if (consecutiveD < 3) {
-          // D
-          return solverStage2(D(cube), consecutiveD + 1)
+        if (consecutiveY < 3) {
+          return solverStage2(Y(cube), 0, consecutiveY + 1)
         } else {
-          // Already 3 D
-          // --> Y
-          if (consecutiveY < 3) {
-            return solverStage2(Y(cube), 0, consecutiveY + 1)
+          // Second phase to check wrongly placed edges
+          if (consecutiveYbis < 3) {
+            if (cube[7][3] != cube[7][4] || cube[5][1] != cube[4][1]) {
+              return solverStage2(s2formulaL(cube))
+            } else if (cube[7][4] != cube[7][5] && cube[5][7] != cube[4][7]) {
+              return solverStage2(s2formulaR(cube))
+            } else {
+              return solverStage2(
+                Y(cube),
+                consecutiveY,
+                consecutiveD,
+                consecutiveYbis + 1
+              )
+            }
           } else {
-            //console.log(cube)
-            //console.log('error stage 2')
+            // Unreached case
+            throw new Error('not end stage2')
           }
         }
       }
@@ -174,3 +191,57 @@ const isStage2Complete = cube => {
   }
   return false
 }
+
+/*
+else if (
+  cube[7][3] == cube[4][7] &&
+  cube[5][1] == cube[7][4] &&
+  cube[7][5] == cube[4][7] &&
+  cube[5][7] == cube[7][4]
+) {
+  // Blocked case 1
+  // Two blocks 7,3 & 7,5 must be permuted
+  // Formula R and retry
+  return solverStage2(s2formulaR(cube))
+} else if (
+  cube[7][3] == cube[7][4] &&
+  cube[5][1] == cube[4][7] &&
+  cube[7][5] == cube[7][4] &&
+  cube[5][7] == cube[4][1]
+) {
+  // Blocked case 2
+  // Two blocks 7,3 & 7,5 must be permuted in the other way
+  // Formula R and retry
+  return solverStage2(s2formulaR(cube))
+} else if (
+  cube[7][3] == cube[4][7] &&
+  cube[5][1] == cube[7][4] &&
+  cube[7][5] == cube[7][4] &&
+  cube[5][7] == cube[4][1]
+) {
+  // Blocked case 3
+  // Two blocks 7,3 & 7,5 must be permuted in the other way
+  // Formula R and retry
+  return solverStage2(s2formulaL(cube))
+}
+
+
+
+else if (cube[7][3] == cube[4][1] && cube[5][1] == cube[7][4]) {
+  // Placed but bad oriented
+  // Down it with L formula
+  return solverStage2(s2formulaL(cube))
+} else if (cube[7][5] == cube[4][7] && cube[5][7] == cube[7][4]) {
+  // Placed but bad oriented
+  // Down it with R formula
+  return solverStage2(s2formulaR(cube))
+}
+
+
+
+if (cube[5][1] == cube[7][4] && cube[7][3] == cube[4][1]) {
+  return solverStage2(s2formulaL(cube))
+} else if (cube[7][5] == cube[4][7] && cube[5][7] == cube[7][4]) {
+  return solverStage2(s2formulaR(cube))
+}
+*/
