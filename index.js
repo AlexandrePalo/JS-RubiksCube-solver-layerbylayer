@@ -61,11 +61,4 @@ const solvedCube = [
   [0, 0, 0, b, b, b, 0, 0, 0, 0, 0, 0]
 ]
 
-/*
-let beginCube = mixCube(solvedCube)
-clearLogs()
-console.log(solver(beginCube))
-log()
-*/
-
-grapher(500)
+grapher(100000)

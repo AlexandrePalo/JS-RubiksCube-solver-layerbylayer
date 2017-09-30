@@ -1,33 +1,83 @@
-let logs = []
+let logs = {}
 
-const logger = transformation => {
-  logs = [...logs, transformation]
+let logsBuffer = []
+let hrstart = null
+
+const loggerBuffer = transformation => {
+  logsBuffer = [...logsBuffer, transformation]
 }
 
-const nbRealTransformations = () => {
-  return logs.filter(t => t != 'Y' && t != "Y'" && t != 'X').length
+const setLogsStageFromBuffer = stage => {
+  logs[stage].transformations = logsBuffer.slice()
+  logs[stage].nbRealTransformations = nbRealTransformations(
+    logs[stage].transformations.slice()
+  )
+  logsBuffer = []
 }
 
-const sLog = () => {
-  let s = ''
-  logs.forEach(t => {
-    s = s + t
-  })
-  return s
+const startTimer = () => {
+  hrstart = process.hrtime()
 }
 
-const log = () => {
-  // All transformations
-  console.log(sLog())
-
-  // Count, without Y, Yc and X
-  console.log(nbRealTransformations() + ' transformations')
+const stopTimer = stage => {
+  logs[stage].time = process.hrtime(hrstart)
+  hrstart = null
 }
 
 const clearLogs = () => {
-  logs = []
+  logs = {
+    stage1a: {
+      transformations: [],
+      nbRealTransformations: 0,
+      time: 0
+    },
+    stage1b: {
+      transformations: [],
+      nbRealTransformations: 0,
+      time: 0
+    },
+    stage2: {
+      transformations: [],
+      nbRealTransformations: 0,
+      time: 0
+    },
+    stage3a: {
+      transformations: [],
+      nbRealTransformations: 0,
+      time: 0
+    },
+    stage3b: {
+      transformations: [],
+      nbRealTransformations: 0,
+      time: 0
+    },
+    stage4: {
+      transformations: [],
+      nbRealTransformations: 0,
+      time: 0
+    },
+    stage5: {
+      transformations: [],
+      nbRealTransformations: 0,
+      time: 0
+    }
+  }
 }
 
-export default log
+const getLogs = () => {
+  return Object.assign({}, logs)
+}
 
-export { logger, clearLogs, sLog, nbRealTransformations }
+export {
+  loggerBuffer,
+  startTimer,
+  stopTimer,
+  clearLogs,
+  getLogs,
+  setLogsStageFromBuffer
+}
+
+const nbRealTransformations = transformations => {
+  return transformations.slice().filter(t => t != 'Y' && t != "Y'" && t != 'X')
+    .length
+}

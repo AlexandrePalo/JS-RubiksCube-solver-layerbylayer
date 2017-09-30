@@ -15,6 +15,7 @@ import {
   Yc,
   X
 } from './transformations'
+import { startTimer, stopTimer, setLogsStageFromBuffer } from './logger'
 
 const solverStage4 = cube => {
   let stage4Complete = false
@@ -78,6 +79,9 @@ const solverStage4 = cube => {
   } else {
     //console.log(cube)
     //console.log('----- STAGE 4 END -----')
+    stopTimer('stage4')
+    setLogsStageFromBuffer('stage4')
+    startTimer()
     return cube
   }
 }

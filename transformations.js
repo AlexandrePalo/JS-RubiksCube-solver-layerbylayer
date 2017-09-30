@@ -1,5 +1,5 @@
 import mappingTable from './mapping'
-import { logger } from './logger'
+import { loggerBuffer } from './logger'
 import { arrayClone } from './utils'
 
 const baseTransformation = (cube, table) => {
@@ -13,63 +13,63 @@ const baseTransformation = (cube, table) => {
 }
 
 const U = cube => {
-  logger('U')
+  loggerBuffer('U')
   return baseTransformation(cube, mappingTable.U)
 }
 const Uc = cube => {
-  logger("U'")
+  loggerBuffer("U'")
   return baseTransformation(cube, mappingTable.Uc)
 }
 const L = cube => {
-  logger('L')
+  loggerBuffer('L')
   return baseTransformation(cube, mappingTable.L)
 }
 const Lc = cube => {
-  logger("L'")
+  loggerBuffer("L'")
   return baseTransformation(cube, mappingTable.Lc)
 }
 const F = cube => {
-  logger('F')
+  loggerBuffer('F')
   return baseTransformation(cube, mappingTable.F)
 }
 const Fc = cube => {
-  logger("F'")
+  loggerBuffer("F'")
   return baseTransformation(cube, mappingTable.Fc)
 }
 const R = cube => {
-  logger('R')
+  loggerBuffer('R')
   return baseTransformation(cube, mappingTable.R)
 }
 const Rc = cube => {
-  logger("R'")
+  loggerBuffer("R'")
   return baseTransformation(cube, mappingTable.Rc)
 }
 const B = cube => {
-  logger('B')
+  loggerBuffer('B')
   return baseTransformation(cube, mappingTable.B)
 }
 const Bc = cube => {
-  logger("B'")
+  loggerBuffer("B'")
   return baseTransformation(cube, mappingTable.Bc)
 }
 const D = cube => {
-  logger('D')
+  loggerBuffer('D')
   return baseTransformation(cube, mappingTable.D)
 }
 const Dc = cube => {
-  logger("D'")
+  loggerBuffer("D'")
   return baseTransformation(cube, mappingTable.Dc)
 }
 const Y = cube => {
-  logger('Y')
+  loggerBuffer('Y')
   return baseTransformation(cube, mappingTable.Y)
 }
 const Yc = cube => {
-  logger("Y'")
+  loggerBuffer("Y'")
   return baseTransformation(cube, mappingTable.Yc)
 }
 const X = cube => {
-  logger('X')
+  loggerBuffer('X')
   return baseTransformation(cube, mappingTable.X)
 }
 

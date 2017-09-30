@@ -15,6 +15,7 @@ import {
   Yc,
   X
 } from './transformations'
+import { startTimer, stopTimer, setLogsStageFromBuffer } from './logger'
 
 /*
         0    1   2  3   4   5   6    7  8    9  10   11
@@ -94,6 +95,9 @@ const solverStage2 = (
   } else {
     //console.log('----- STAGE 2 END -----')
     // X2 needed for stage 3 and further
+    stopTimer('stage2')
+    setLogsStageFromBuffer('stage2')
+    startTimer()
     cube = X(X(cube))
     return cube
   }

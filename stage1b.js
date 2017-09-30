@@ -15,6 +15,7 @@ import {
   Yc,
   X
 } from './transformations'
+import { startTimer, stopTimer, setLogsStageFromBuffer } from './logger'
 
 /*
         0    1   2  3   4   5   6    7  8    9  10   11
@@ -216,6 +217,9 @@ const solverStage1b = (cube, consecutiveY = 0) => {
     }
   } else {
     //console.log('----- STAGE 1B END -----')
+    stopTimer('stage1b')
+    setLogsStageFromBuffer('stage1b')
+    startTimer()
     return cube
   }
 }

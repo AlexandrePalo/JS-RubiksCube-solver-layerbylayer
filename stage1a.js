@@ -16,6 +16,7 @@ import {
   X
 } from './transformations'
 import { arrayClone } from './utils'
+import { startTimer, stopTimer, setLogsStageFromBuffer } from './logger'
 
 /*
         0    1   2  3   4   5   6    7  8    9  10   11
@@ -97,12 +98,15 @@ const solverStage1a = (cube, consecutiveY = 0) => {
       if (consecutiveY < 3) {
         return solverStage1a(Y(arrayClone(cube)), consecutiveY + 1)
       } else {
-        //console.log(cube)
-        //console.log('error stage 1a')
+        // Unreached case
+        throw new Error('not end stage 1a')
       }
     }
   } else {
     //console.log('----- STAGE 1A END -----')
+    stopTimer('stage1a')
+    setLogsStageFromBuffer('stage1a')
+    startTimer()
     return cube
   }
 }
